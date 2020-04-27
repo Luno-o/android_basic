@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='BuildAndResources'
+rootProject.name='02_BuildAndResources'

@@ -3,4 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorForPaidBackground">#A64E00</color>
+    <color name="colorForPaidAccent">#000000</color>
+    <color name="colorForPaidDark">#888888</color>
+    <color name="colorForFreeBackground">#AAA543</color>
+    <color name="colorForFreeAccent">#000000</color>
+    <color name="colorForFreeDark">#453123</color>
+    <color name="colorLand">#008666</color>
 </resources>

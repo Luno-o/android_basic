@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.dorongold.task-tree'
 
 android {
     compileSdkVersion 29
@@ -16,11 +17,38 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".release"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        qa {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".qa"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "paidType"
+
+    productFlavors{
+        free{
+            applicationIdSuffix ".free"
+            dimension "paidType"
+
+        }
+        paid{
+            applicationIdSuffix ".paid"
+            dimension "paidType"
+        }
+    }
+
 }
 
 dependencies {
