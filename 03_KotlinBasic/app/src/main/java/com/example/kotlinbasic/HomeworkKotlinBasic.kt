@@ -1,45 +1,48 @@
 package com.example.kotlinbasic
-val arrayList = arrayListOf<Int>()
-var countOfPositiveNumbers: Int=0
-val mapGCD = mutableMapOf<Int,Int>()
+
 
 fun main() {
     println("Введите размер массива: ")
     val n = readLine()?.toIntOrNull() ?: return
-    buildArrayList(n)
+    val arrayList = buildArrayList(n)
+    println(arrayList)
+    var countOfPositiveNumbers: Int = 0
+    for (i in arrayList){
+        if (i>0){
+            countOfPositiveNumbers++
+        }
+    }
     println(countOfPositiveNumbers)
     var filterArray = arrayList.filter { it%2 == 0 }
     println(filterArray)
     val setCollection = mutableSetOf<Int>()
     setCollection.addAll(arrayList)
     println(setCollection)
-    sum()
+    sum(arrayList)
+    val mapGCD = mutableMapOf<Int,Int>()
     for (i in 0 until arrayList.size){
-        val currentGCD = gcd(arrayList[i], sum())
+        val currentGCD = gcd(arrayList[i], sum(arrayList))
         mapGCD.put(arrayList[i],currentGCD)
     }
-    for (i in 0 until arrayList.size)
-    println("Число ${arrayList[i]}, сумма ${sum()}, НОД ${mapGCD[arrayList[i]]}")
-}
-
-fun buildArrayList(n: Int){
-    println("Вы ввели $n . Введите $n чисел")
-    for (i in 0 until n) {
-        var m: Int? = readLine()?.toIntOrNull()
-        while (m == null) {
-            m = readLine()?.toIntOrNull()
-
-        }
-        if (m > 0) countOfPositiveNumbers++
-        arrayList.add(m)
+    for (key in arrayList) {
+        println("Число $key, сумма ${sum(arrayList)}, НОД ${mapGCD[key]}")
     }
-    println(arrayList)
 }
 
-fun sum(): Int{
+fun buildArrayList(n: Int):MutableList<Int>{
+    println("Вы ввели $n . Введите $n чисел")
+    val arrayList = mutableListOf<Int>()
+        while (arrayList.size < n) {
+           arrayList.add(readLine()?.toIntOrNull()?:continue)
+    }
+
+    return arrayList
+}
+
+fun sum(list: MutableList<Int>):Int{
     var sumNumber = 0
-    for (i in 0 until arrayList.size) {
-        sumNumber += arrayList[i]
+    for (i in 0 until list.size) {
+        sumNumber += list[i]
     }
     return sumNumber
 }
@@ -49,6 +52,6 @@ return if (b==0){
     a
 }
     else{
-     gcd(b,a%b)
+     gcd(b,Math.abs(a%b))
 }
 }
