@@ -2,7 +2,11 @@ package com.example.kotlinoop
 
 import kotlin.random.Random
 
-enum class Ammo(private val damage: Int, private val critChance: Int, private val critDamageRatio: Int) {
+enum class Ammo(
+    private val damage: Int,
+    private val critChance: Int,
+    private val critDamageRatio: Int
+) {
 
     CUSTOMBULLET(10, 10, 130),
     FULLMETALSHELLBULLET(12, 30, 150),

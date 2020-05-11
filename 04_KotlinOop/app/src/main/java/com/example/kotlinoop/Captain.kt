@@ -1,15 +1,17 @@
 package com.example.kotlinoop
 
 
-class Captain (
-    maxHealth: Int, dodgeChance: Int, accuracy: Int, weapon: AbstractWeapon, currentHealth : Int
-    ):AbstractWarrior(maxHealth, dodgeChance,
+class Captain(
+    maxHealth: Int, dodgeChance: Int, accuracy: Int, weapon: AbstractWeapon, currentHealth: Int
+) : AbstractWarrior(
+    maxHealth, dodgeChance,
     accuracy, weapon, currentHealth
-){
+) {
     override var isKilled: Boolean = currentHealth <= 0
-    companion object{
-        fun createCaptain():Captain{
-            return Captain(2500,30,80,Weapons.miniGun,currentHealth = 2500)
+
+    companion object {
+        fun createCaptain(): Captain {
+            return Captain(2500, 30, 80, Weapons.miniGun, currentHealth = 2500)
         }
     }
 }
