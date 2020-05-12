@@ -6,7 +6,6 @@ class Sergeant(
     maxHealth, dodgeChance,
     accuracy, weapon, currentHealth
 ) {
-    override var isKilled: Boolean = currentHealth <= 0
 
     companion object {
         fun createSergeant(): Sergeant {

@@ -10,6 +10,11 @@ abstract class AbstractWarrior(
     var currentHealth: Int
 ) : Warrior {
 
+    override var isKilled: Boolean = false
+        get() {
+            return currentHealth == 0
+        }
+
     override fun atack(warrior: Warrior) {
         this.weapon.isEmptyClip= this.weapon.listAmmo.isEmpty()
         if (this.weapon.isEmptyClip) {
@@ -21,13 +26,17 @@ abstract class AbstractWarrior(
                     100
                 ) > warrior.dodgeChance
             ) {
-                warrior.takeDamage(ammo.getCurrentDamage())
+                for (i in ammo){
+                    warrior.takeDamage(i.getCurrentDamage())
+                }
+
             }
         }
     }
 
     override fun takeDamage(damage: Int) {
         currentHealth -= damage
+        if (currentHealth < 0)currentHealth = 0
     }
 
 }

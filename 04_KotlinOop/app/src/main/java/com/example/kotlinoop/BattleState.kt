@@ -1,28 +1,13 @@
 package com.example.kotlinoop
 
-sealed class BattleState(var team1: Team, var team2: Team) {
-    class CurrentProgress(team1: Team, team2: Team) : BattleState(team1, team2) {
-        var stayAliveTeam1: Int = team1.warriorsList.size
-        var stayAliveTeam2: Int = team2.warriorsList.size
-      private  fun sumHealthTeam2(): Int {
-            var sumHealth: Int = 0
-            for (n in team2.warriorsList) {
-                sumHealth += n.currentHealth
-            }
-            return sumHealth
-        }
+sealed class BattleState {
+    class CurrentProgress(var team1Health: Int,var team2Health: Int,var stayAliveTeam1: Int,var stayAliveTeam2: Int) : BattleState() {
 
-        private fun sumHealthTeam1(): Int {
-            var sumHealth: Int = 0
-            for (n in team1.warriorsList) {
-                sumHealth += n.currentHealth
-            }
-            return sumHealth
-        }
+
 
         private fun printState() {
-            println("Суммарное количество жизней в первой команде ${sumHealthTeam1()} , осталось в живых $stayAliveTeam1")
-            println("Суммарное количество жизней во второй команде ${sumHealthTeam2()} , осталось в живых $stayAliveTeam2")
+            println("Суммарное количество жизней в первой команде $team1Health , осталось в живых $stayAliveTeam1")
+            println("Суммарное количество жизней во второй команде $team2Health , осталось в живых $stayAliveTeam2")
         }
 
         init {
@@ -31,7 +16,7 @@ sealed class BattleState(var team1: Team, var team2: Team) {
 
     }
 
-    class Team1Win(team1: Team, team2: Team) : BattleState(team1, team2) {
+    class Team1Win: BattleState() {
         private fun printWiner() {
             println("Первая команда победила")
         }
@@ -41,7 +26,7 @@ sealed class BattleState(var team1: Team, var team2: Team) {
         }
     }
 
-    class Team2Win(team1: Team, team2: Team) : BattleState(team1, team2) {
+    class Team2Win : BattleState() {
         private fun printWiner() {
             println("Вторая команда победила")
         }
@@ -51,7 +36,7 @@ sealed class BattleState(var team1: Team, var team2: Team) {
         }
     }
 
-    class Draw(team1: Team, team2: Team) : BattleState(team1, team2) {
+    class Draw : BattleState() {
         private fun printDraw() {
             print("Ничья")
         }

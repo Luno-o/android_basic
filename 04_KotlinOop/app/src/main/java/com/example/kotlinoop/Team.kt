@@ -23,6 +23,13 @@ class Team {
             }
         }
     }
+    fun sumHealthTeam(): Int {
+        var sumHealth: Int = 0
+        for (n in this.warriorsList) {
+            sumHealth += n.currentHealth
+        }
+        return sumHealth
+    }
 
     init {
         fillWarriorsList()

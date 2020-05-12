@@ -6,7 +6,6 @@ class Corporal(
     maxHealth, dodgeChance,
     accuracy, weapon, currentHealth
 ) {
-    override var isKilled: Boolean = currentHealth <= 0
 
     companion object {
         fun createCorporal(): Corporal {

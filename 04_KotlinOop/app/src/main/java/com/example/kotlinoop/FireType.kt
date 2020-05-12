@@ -1,8 +1,8 @@
 package com.example.kotlinoop
 
-sealed class FireType {
+sealed class FireType(val shotCount: Int) {
 
-    object SingleShot : FireType()
-    object Bursting : FireType()
+    object SingleShot : FireType(1)
+    object Bursting : FireType(3)
 
 }
