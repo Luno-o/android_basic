@@ -1,10 +1,11 @@
 package com.example.kotlinoop
 
+
 abstract class AbstractWeapon(private val maxAmmo: Int, private val fireType: FireType) {
 
-    private var listAmmo: MutableList<Ammo> = mutableListOf()
+    var listAmmo: MutableList<Ammo> = mutableListOf()
 
-    var isEmptyClip: Boolean = listAmmo.size == 0
+    var isEmptyClip: Boolean = listAmmo.isEmpty()
 
     abstract fun makeAmmo(): Ammo
 
@@ -13,6 +14,7 @@ abstract class AbstractWeapon(private val maxAmmo: Int, private val fireType: Fi
         while (this.listAmmo.size < this.maxAmmo) {
             listAmmo.add(makeAmmo())
         }
+        isEmptyClip = listAmmo.isEmpty()
     }
 
     fun getAmmoForShot(): Ammo {
@@ -24,9 +26,7 @@ abstract class AbstractWeapon(private val maxAmmo: Int, private val fireType: Fi
             listAmmo.removeAt(0)
             listAmmo.removeAt(0)
         } else {
-            print("need reload")
         }
-
         return ammo
     }
 }

@@ -3,7 +3,7 @@ package com.example.kotlinoop
 import kotlin.random.Random
 
 abstract class AbstractWarrior(
-    var maxHealth: Int,
+    private var maxHealth: Int,
     override var dodgeChance: Int,
     private val accuracy: Int,
     private val weapon: AbstractWeapon,
@@ -11,6 +11,7 @@ abstract class AbstractWarrior(
 ) : Warrior {
 
     override fun atack(warrior: Warrior) {
+        this.weapon.isEmptyClip= this.weapon.listAmmo.isEmpty()
         if (this.weapon.isEmptyClip) {
             weapon.reload()
         } else {

@@ -11,7 +11,7 @@ class Captain(
 
     companion object {
         fun createCaptain(): Captain {
-            return Captain(2500, 30, 80, Weapons.miniGun, currentHealth = 2500)
+            return Captain(2500, 30, 80, Weapons.miniGun, 2500)
         }
     }
 }

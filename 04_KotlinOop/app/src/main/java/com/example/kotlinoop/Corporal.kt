@@ -10,7 +10,7 @@ class Corporal(
 
     companion object {
         fun createCorporal(): Corporal {
-            return Corporal(1500, 15, 60, Weapons.rifle, currentHealth = 1500)
+            return Corporal(1500, 15, 60, Weapons.rifle,  1500)
         }
     }
 }

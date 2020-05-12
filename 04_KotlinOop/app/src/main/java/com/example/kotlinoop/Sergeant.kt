@@ -10,7 +10,7 @@ class Sergeant(
 
     companion object {
         fun createSergeant(): Sergeant {
-            return Sergeant(2000, 20, 70, Weapons.Ak47, currentHealth = 2000)
+            return Sergeant(2000, 20, 70, Weapons.Ak47,  2000)
         }
     }
 }

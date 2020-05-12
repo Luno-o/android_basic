@@ -5,7 +5,7 @@ import kotlin.random.Random
 
 class Team {
     var warriorsList = mutableListOf<AbstractWarrior>()
-    val warriorCount = readLine()?.toIntOrNull() ?: 0
+    private val warriorCount = readLine()?.toIntOrNull() ?: 0
     private fun fillWarriorsList() {
         while (warriorsList.size < this.warriorCount) {
             val chance = Random.nextInt(0, 100)
