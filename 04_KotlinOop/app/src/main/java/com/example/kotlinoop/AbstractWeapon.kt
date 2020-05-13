@@ -15,24 +15,21 @@ abstract class AbstractWeapon(private val maxAmmo: Int, private val fireType: Fi
         while (this.listAmmo.size < this.maxAmmo) {
             listAmmo.add(makeAmmo())
         }
-        isEmptyClip = listAmmo.isEmpty()
     }
 
     fun getAmmoForShot(): List<Ammo> {
         val ammo: MutableList<Ammo> = mutableListOf()
-        if (this.fireType == FireType.SingleShot && listAmmo.size > 0) {
-            for (i in 1..FireType.SingleShot.shotCount){
-                ammo.add(listAmmo[0])
-                listAmmo.removeAt(0)
+        if (this.fireType == FireType.SingleShot && !isEmptyClip) {
+                ammo.add(listAmmo.removeAt(0))
             }
 
-        } else if (this.fireType == FireType.Bursting && listAmmo.size > 2) {
+        else if (this.fireType == FireType.Bursting) {
             for (i in 1..FireType.Bursting.shotCount){
-                if(!listAmmo.isEmpty()){
-                    ammo.add(listAmmo[0])
-                    listAmmo.removeAt(0)
-                }
+            if (isEmptyClip){
+                break
             }
+                    ammo.add(listAmmo.removeAt(0))
+                }
         }
         return ammo
     }

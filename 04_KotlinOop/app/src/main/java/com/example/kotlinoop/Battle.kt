@@ -63,12 +63,12 @@ class Battle(var team1: Team, var team2: Team) {
     fun nextBattleTurn() {
         team1.warriorsList.shuffle()
         team2.warriorsList.shuffle()
-        val maxRange: Int = if (team1.warriorsList.size > team2.warriorsList.size) {
-            team1.warriorsList.size
-        } else {
+        val minRange: Int = if (team1.warriorsList.size > team2.warriorsList.size) {
             team2.warriorsList.size
+        } else {
+            team1.warriorsList.size
         }
-        for (ind: Int in 0 until maxRange) {
+        for (ind: Int in 0 until minRange) {
             teamAtack(ind)
         }
     }
