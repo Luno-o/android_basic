@@ -1,7 +1,8 @@
 package com.example.a01_generics
 
 fun main() {
-
+val ochered = Queue<Int>()
+    print("${ochered.enquue(1)}, ${ochered.dequeue()}, ${ochered.dequeue()}")
 }
 class Queue<T> {
     private var list:MutableList<T> = mutableListOf()
@@ -11,7 +12,7 @@ class Queue<T> {
     }
 
     fun dequeue():T?{
-        return list[0]
+        return if (list.isNotEmpty()){list.removeAt(0)}else{ null}
     }
 }
 
