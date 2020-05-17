@@ -2,7 +2,6 @@ package com.example.kotlinoop
 
 import kotlin.random.Random
 
-
 class Team {
     var warriorsList = mutableListOf<AbstractWarrior>()
     private val warriorCount = readLine()?.toIntOrNull() ?: 0

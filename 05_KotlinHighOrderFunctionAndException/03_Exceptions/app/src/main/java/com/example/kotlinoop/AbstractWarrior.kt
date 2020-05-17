@@ -16,7 +16,7 @@ abstract class AbstractWarrior(
         }
 
     override fun atack(warrior: Warrior) {
-        this.weapon.isEmptyClip= this.weapon.listAmmo.isEmpty()
+        this.weapon.isEmptyClip = this.weapon.listAmmo.isEmpty()
         if (this.weapon.isEmptyClip) {
             weapon.reload()
         } else {
@@ -26,17 +26,15 @@ abstract class AbstractWarrior(
                     100
                 ) > warrior.dodgeChance
             ) {
-                for (i in ammo){
+                for (i in ammo) {
                     warrior.takeDamage(i.getCurrentDamage())
                 }
-
             }
         }
     }
 
     override fun takeDamage(damage: Int) {
         currentHealth -= damage
-        if (currentHealth < 0)currentHealth = 0
+        if (currentHealth < 0) currentHealth = 0
     }
-
 }

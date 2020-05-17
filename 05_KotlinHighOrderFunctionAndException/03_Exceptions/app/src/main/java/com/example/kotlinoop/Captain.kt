@@ -1,8 +1,11 @@
 package com.example.kotlinoop
 
-
 class Captain(
-    maxHealth: Int, dodgeChance: Int, accuracy: Int, weapon: AbstractWeapon, currentHealth: Int
+    maxHealth: Int,
+    dodgeChance: Int,
+    accuracy: Int,
+    weapon: AbstractWeapon,
+    currentHealth: Int
 ) : AbstractWarrior(
     maxHealth, dodgeChance,
     accuracy, weapon, currentHealth

@@ -21,5 +21,4 @@ enum class Ammo(
             damage
         }
     }
-
 }

@@ -1,7 +1,11 @@
 package com.example.kotlinoop
 
 class OrdinarySoldier(
-    maxHealth: Int, dodgeChance: Int, accuracy: Int, weapon: AbstractWeapon, currentHealth: Int
+    maxHealth: Int,
+    dodgeChance: Int,
+    accuracy: Int,
+    weapon: AbstractWeapon,
+    currentHealth: Int
 ) : AbstractWarrior(
     maxHealth, dodgeChance, accuracy, weapon, currentHealth
 ) {
@@ -17,6 +21,4 @@ class OrdinarySoldier(
             )
         }
     }
-
-
 }
