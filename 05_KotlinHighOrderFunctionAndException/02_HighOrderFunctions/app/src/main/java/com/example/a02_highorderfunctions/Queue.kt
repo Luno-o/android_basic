@@ -9,7 +9,7 @@ fun main() {
     ochered.enquue(7)
     ochered.enquue(9)
     ochered.enquue(12)
-    val newOchered = ochered.filterQueue{it %2 == 0}
+    val newOchered = ochered::filterQueue{it %2 == 0}
     print(newOchered.list)
 }
 
