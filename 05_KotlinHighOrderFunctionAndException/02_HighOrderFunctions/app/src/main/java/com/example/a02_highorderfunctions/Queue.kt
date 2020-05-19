@@ -9,7 +9,7 @@ fun main() {
     ochered.enquue(7)
     ochered.enquue(9)
     ochered.enquue(12)
-    val newOchered = ochered::filterQueue{it %2 == 0}
+    val newOchered = ochered.filterQueue(::evenFilter)
     print(newOchered.list)
 }
 
@@ -33,4 +33,8 @@ class Queue<T:Number> {
         return new
     }
 
+
+}
+fun<T:Number> evenFilter(it:T):Boolean{
+    return it.toLong() % 2 == 0L
 }
