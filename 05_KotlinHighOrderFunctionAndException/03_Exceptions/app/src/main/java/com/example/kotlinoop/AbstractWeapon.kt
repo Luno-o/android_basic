@@ -20,7 +20,6 @@ abstract class AbstractWeapon(private val maxAmmo: Int, private val fireType: Fi
 
     fun getAmmoForShot(): List<Ammo> {
         val ammo: MutableList<Ammo> = mutableListOf()
-        try {
             if (this.fireType == FireType.SingleShot) {
                 if (isEmptyClip) {
                     throw NoAmmoException()
@@ -34,10 +33,6 @@ abstract class AbstractWeapon(private val maxAmmo: Int, private val fireType: Fi
                     ammo.add(listAmmo.removeAt(0))
                 }
             }
-        } catch (t: NoAmmoException) {
-            reload()
-        }
-
         return ammo
     }
 }
