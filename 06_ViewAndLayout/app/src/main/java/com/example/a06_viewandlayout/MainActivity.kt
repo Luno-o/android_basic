@@ -1,7 +1,6 @@
 package com.example.a06_viewandlayout
 
 import android.annotation.TargetApi
-import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,11 +25,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val imageView = findViewById<ImageView>(R.id.image_view)
+        Glide.with(this).load("https://goo.su/1FQ4").into(imageView)
         loginButton.isEnabled = false
-
-        Glide.with(this)
-            .load("https://syrlasu.kz/wp-content/uploads/2019/07/kak-razgovarivat-s-devushkoj-chtoby-ona-vlyubilas1-min.jpg")
-            .into(imageView)
 
         edit_login.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -41,11 +37,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 loginButton.isEnabled =
-                    s?.let{ it.isNotEmpty() && edit_password.text.isNotEmpty() && checkbox.isChecked }
-                        ?: false
-
+                    edit_login.text.isNotEmpty() && edit_password.text.isNotEmpty() && checkbox.isChecked
             }
+
         })
+
         edit_password.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -54,24 +50,27 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                loginButton.isEnabled =s?.let{it.isNotEmpty() && edit_login.text.isNotEmpty() && checkbox.isChecked }?:false
+                loginButton.isEnabled =
+                    edit_login.text.isNotEmpty() && edit_password.text.isNotEmpty() && checkbox.isChecked
             }
 
         })
+
         checkbox.setOnClickListener {
             loginButton.isEnabled =
-                edit_password.text.isNotEmpty() && edit_login.text.isNotEmpty() && checkbox.isChecked
+                edit_login.text.isNotEmpty() && edit_password.text.isNotEmpty() && checkbox.isChecked
         }
+
         loginButton.setOnClickListener {
             val progressBar = ProgressBar(this).apply {
                 layoutParams = ConstraintLayout.LayoutParams(
                     ConstraintLayout.LayoutParams.WRAP_CONTENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
                 ).apply {
-                    topToTop = ConstraintLayout.LayoutParams.PARENT_ID
                     bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-                    leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
+                    topToTop = ConstraintLayout.LayoutParams.PARENT_ID
                     rightToRight = ConstraintLayout.LayoutParams.PARENT_ID
+                    leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID
                 }
             }
             container.addView(progressBar)
