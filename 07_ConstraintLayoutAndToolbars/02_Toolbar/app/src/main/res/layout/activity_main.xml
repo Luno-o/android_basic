@@ -1,18 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_long"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorYellow"
+            android:text="500 000$ в неделю на содержание: сравниваю стоимость самых дорогих яхт российских миллиардеров с бюджетом Ярославля
+500 000$ в неделю на содержание: сравниваю стоимость самых дорогих яхт российских миллиардеров с бюджетом Ярославля
+Владимир Сильченко
+7 июня 2020
+Яхта Абрамовича
+
+Если Абрамович покупает яхту, то только эксклюзивную, выстроенную по спецпроекту под заказ. «Эклипс» спустили на воду в 2009 году, в эксплуатацию к хозяину она перешла в 2010 после небольших доработок.
+
+Это самая дорогая яхта в мире, удостоенная собственной страницы в Википедии. Стоимость составляет 1 млрд. 200 млн. долларов.
+
+Длина «Эклипса» 162 м. На борту есть: 12 кают, 3 столовые и винный погреб, кинотеатр, спа, концертный зал. На судне 2 бассейна, один из них может трансформироваться в танцпол.
+
+На яхте всегда находятся 2 вертолета, 4 катера, 20 скутеров, субмарина, рассчитанная на 12 человек.
+
+Яхта Мельниченко
+
+Яхта Андрея Мельниченко чуть меньше, ее длина составляет 143 м, и носит она лаконичное название «А» – чтобы в морских реестрах она значилась первой.
+
+Выстроили судно в Германии, оценивается оно в 400 млн. долларов. На яхте 8 палуб и 3 мачты из углеводородного волокна высотой 100 метров. «А» считается самым большим парусником в мире.
+
+На борту располагается вертолетная площадка, 3 бассейна, судно-амфибия, кинотеатр, спа и далее по списку весь стандартный фарш для яхты миллиардера.
+
+Говорят, в спальне хозяина размещена вращающаяся кровать, чтобы можно было любоваться по желанию и рассветом, и закатом через панорамное окно.
+
+Отделка одного квадратного метра на яхте обошлась в среднем в 1 млн. рублей, а один смеситель в ванной – 40 тысяч долларов.
+
+Яхта Потанина
+
+Владимир Потанин, президент холдинга «Интеррос», занимает шестую строчку в рейтинге самых богатых людей России и фанатеет от яхт.
+
+Еще в 2017 году он обладал целой флотилией, куда входили: «Анастасия» длиной 75,5 метров, «Барбара» длиной 88,5 метров и «Нирвана» такой же длины. На последней и остановимся.
+
+«Нирвана» может предложить 6 кают для размещения гостей. Почти половину верхней палубы занимают апартаменты хозяев.
+
+Чтобы не скучать, здесь есть бар, тренажерный зал с самым современным оборудованием и спа-салон, кинотеатр 3D, терраса для солнечных ванн и ресторан с панорамными окнами.
+
+«Фишка» этой яхты – террариум с редкими рептилиями. Также на «Нирване» размещен бассейн длиной 7,5 метров и глубиной 1,5 метра. Глубину можно регулировать и наполнять бассейн свежей морской водой.
+
+Еще одна изюминка – стеклянный лифт, инкрустированный серебром, который доставит пассажиров с нижней палубы на самый верх. На судне имеется вертолетная площадка.
+
+Потенциал яхты тоже неплох: максимальная скорость составляет 38 км/ч или 18 узлов, пройти без дозаправки она может до 5000 км.
+
+И все же: у кого круче
+
+Больше – не значит лучше. Справедливости ради стоит отметить, что по величине лидирует яхта Абрамовича. Она же опережает остальные по начинке.
+
+Немного отстает судно Мельниченко, но только в длину. В высоту ей нет равных в мире. Это наверняка тешит самолюбие миллионера.
+
+Потанин не стремится к большему, но способен удивить внутренним содержанием
+
+Видим, что у каждого владельца свои приоритеты. Кто-то стремится ошеломить гостей, кому-то важно поднять парус и уйти в кругосветку, а кто-то просто коллекционирует яхты.
+
+Но, как часто пользуются хозяева своими игрушками? Смогут ли они когда-либо продать их, ведь вопрос даже не в цене судна, а в том, во сколько обходится содержание яхты и команды.
+P.S. Во сколько обходится содержание яхты такого класса
+
+«Эклипс» «съедает» 500 тысяч долларов еженедельно. В сумму уже входит зарплата экипажу и обслуживающему персоналу. Расходы на содержание в год достигают 39 миллионов долларов.
+
+Для снижения расходного чека «Эклипс» сдается в аренду, если не занята хозяевами. Цена вопроса – 2 миллиона евро в неделю.
+
+Чтобы поддерживать самую большую в мире парусную яхту на плаву, Андрею Мельниченко нужно выложить как минимум 48 млн. долларов в год – с учетом зарплаты команде и платы за зимнее хранение.
+
+Но не подсчитаны траты на ремонт – как известно, Мельниченко потратил как-то на «тюнинг» около 24 млн. долларов и все равно остался недоволен.
+
+Потанин по своей яхте «Нирвана» держит в секрете расходы. Мне не удалось найти какие-либо сведения. Видимо, очень дорого, если он хочет ее продать.
+
+Сначала яхта выставлялась за 230 млн. долларов, потом цену опустили до 199 млн. Сейчас ее сдают в аренду – 900 тыс. евро в неделю.
+
+Так что видим, дорогие игрушки быстро надоедают, а попробуй-ка ты их продай.
+
+Для примера, бюджет Ярославля на 2020 год составляет 294 миллиона долларов. Т.е. на стоимость яхты Абрамовича можно содержать Ярославль 4 года, а на яхту Мельниченко — 1,5 года.
+
+Источник: http://capitalgains.ru/novosti/500-000-v-nedelyu-na-soderzhanie-sravnivayu-stoimost-samyh-dorogih-yaht-rossijskih-milliarderov-s-byudzhetom-yaroslavlya.html?utm_referrer=https%3A%2F%2Fzen.yandex.com"
+            android:textStyle="bold" />
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolbarStyleYB"
+        android:fitsSystemWindows="true">
+
+
+
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+
+            android:fitsSystemWindows="true"
+            android:id="@+id/Coltoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:title="@string/app_name"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+
+
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_one"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax"
+                />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:buttonGravity="center_vertical"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:titleTextColor="@color/colorYellow"
+                app:menu="@menu/menu_activity"/>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

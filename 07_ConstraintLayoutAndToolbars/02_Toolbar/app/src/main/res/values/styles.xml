@@ -1,11 +1,28 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorYellow</item>
+    </style>
+
+<style name="ToolbarStyleYB">
+<item name="android:background">@color/colorBlack</item>
+    <item name="android:theme">@style/ToolbarThemeYB</item>
+</style>
+
+    <style name="ToolbarThemeYB" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+<item name="android:textColorPrimary">@color/colorYellow</item>
+<item name="toolbarNavigationButtonStyle">@style/ToolbarNavigationStyle</item>
+        <item name="colorPrimary">@color/colorBlack</item>
+
+    </style>
+    <style name="ToolbarNavigationStyle" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+<item name="android:tint">@color/colorYellow</item>
+
     </style>
 
 </resources>
