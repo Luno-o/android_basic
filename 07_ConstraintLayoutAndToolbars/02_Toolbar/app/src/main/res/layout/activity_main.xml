@@ -96,7 +96,8 @@ P.S. Во сколько обходится содержание яхты так
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ToolbarStyleYB"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
 
 
@@ -106,7 +107,7 @@ P.S. Во сколько обходится содержание яхты так
             android:fitsSystemWindows="true"
             android:id="@+id/Coltoolbar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             app:title="@string/app_name"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
