@@ -134,5 +134,28 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="399dp" />
 
+    <Button
+
+        android:id="@+id/buttonANR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ANR Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox" />
+
+    <TextView
+        android:id="@+id/textViewLa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/buttonANR"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox"
+        app:layout_constraintVertical_bias="0.726" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
