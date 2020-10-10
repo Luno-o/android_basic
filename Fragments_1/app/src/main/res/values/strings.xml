@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">06_ViewAndLayout</string>
+    <string name="image">Изображение</string>
+    <string name="download">download</string>
+    <string name="agree">Я согласен с условиями</string>
+    <string name="login">Login</string>
+    <string name="e_mail_hint">Введите ваш адрес e-mail</string>
+    <string name="password">Введите пароль</string>
+    <string name="sign_in">Sign In</string>
+</resources>
