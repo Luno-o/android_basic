@@ -1,10 +1,19 @@
+
 <resources>
     <string name="app_name">06_ViewAndLayout</string>
     <string name="image">Изображение</string>
-    <string name="download">download</string>
     <string name="agree">Я согласен с условиями</string>
     <string name="login">Login</string>
     <string name="e_mail_hint">Введите ваш адрес e-mail</string>
     <string name="password">Введите пароль</string>
     <string name="sign_in">Sign In</string>
+    <string name="your_friends">Your Friends</string>
+    <string name="best_friend_1">Best friend 1</string>
+    <string name="best_friend_2">Best Friend 2</string>
+    <string name="best_friend_3">Best friend 3</string>
+    <string name="best_friend_4">Best Friend 4</string>
+    <string name="not_very_intresting_information">Not very intresting information</string>
+    <string name="very_intresting_infomation">Very intresting information</string>
+    <string name="best_friend_name">Best friend name</string>
+    <string name="character">Character</string>
 </resources>

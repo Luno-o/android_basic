@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#065D6C"
+        android:id="@+id/fragmentListContainer">
+
+    <FrameLayout
+            android:layout_marginHorizontal="10dp"
+            android:background="#1AA193"
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          >
+
+        <TextView
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/yourFriendText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/best_friend_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.459"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                android:textSize="24sp"
+                android:textColor="#101949" />
+
+        <Button
+                android:layout_gravity="end"
+                android:text="@string/best_friend_1"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:id="@+id/moreInformation" />
+    </FrameLayout>
+    <FrameLayout
+            android:layout_marginHorizontal="10dp"
+            android:background="#1AA193"
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/best_friend_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.459"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                android:textSize="24sp"
+                android:textColor="#101949" />
+
+        <Button
+                android:layout_gravity="end"
+                android:text="@string/best_friend_2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                />
+    </FrameLayout>
+    <FrameLayout
+            android:layout_marginHorizontal="10dp"
+            android:background="#1AA193"
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/best_friend_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.459"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                android:textSize="24sp"
+                android:textColor="#101949" />
+
+        <Button
+                android:layout_gravity="end"
+                android:text="@string/best_friend_3"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                />
+    </FrameLayout>
+    <FrameLayout
+            android:layout_marginHorizontal="10dp"
+            android:background="#1AA193"
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/best_friend_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.459"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                android:textSize="24sp"
+                android:textColor="#101949" />
+
+        <Button
+                android:layout_gravity="end"
+                android:text="@string/best_friend_4"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                />
+    </FrameLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
