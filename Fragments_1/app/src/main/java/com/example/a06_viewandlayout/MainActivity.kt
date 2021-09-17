@@ -38,5 +38,18 @@ showLoginFragment()
 
     }
 
+    override fun onBackPressed() {
+        for (fragment in supportFragmentManager.fragments){
+            if (fragment.isVisible){
+                val childFragment = fragment.childFragmentManager
+                if (childFragment.backStackEntryCount > 0){
+                    childFragment.popBackStack()
+                Log.d("Main backstack", childFragment.backStackEntryCount.toString())
+                }
+                else
+                    super.onBackPressed()
+            }
+        }
 
+    }
 }
