@@ -10,7 +10,13 @@ import androidx.fragment.app.FragmentTransaction
 class MainFragment : Fragment(R.layout.fragment_main), ItemSelectListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState==null) showListFragment()
+        val tabletSize = resources.getBoolean(R.bool.isTablet)
+
+     if(!tabletSize){
+
+         if (savedInstanceState==null) showListFragment()
+     }
+
     }
 private fun showListFragment(){
     childFragmentManager.beginTransaction()
