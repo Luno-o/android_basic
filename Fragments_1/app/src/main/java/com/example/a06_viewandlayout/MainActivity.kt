@@ -25,8 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-showLoginFragment()
-
+        if (savedInstanceState==null) showLoginFragment()
     }
 
     private fun showLoginFragment(){
