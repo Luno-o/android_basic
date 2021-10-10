@@ -14,7 +14,7 @@ class ArticleAdapter(private val screen: List<ArticleScreen>,fragment: Fragment)
 
     override fun createFragment(position: Int): Fragment {
         val screen :ArticleScreen = screen[position]
-        return ArticleFragment.newInstance(screen.article,screen.draw)
+        return ArticleFragment.newInstance(textRes = screen.article,drawRes = screen.draw)
     }
 
 }

@@ -15,9 +15,9 @@ class ViewpagerFragment : Fragment(R.layout.fragment_viewpager){
     )
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val adapter = ArticleAdapter(screens,this)
         viewpager.adapter = adapter
+dots_indicator.setViewPager2(viewpager)
     }
 
 
