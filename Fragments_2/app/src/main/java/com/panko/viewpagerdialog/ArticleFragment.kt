@@ -19,6 +19,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     }
 
     companion object {
+        private val tags:List<ArticleTag> = listOf()
         private const val KEY_TEXT = "resource text"
         private const val KEY_DRAW = "resource draw"
         fun newInstance(@StringRes textRes: Int, @DrawableRes drawRes: Int): ArticleFragment {

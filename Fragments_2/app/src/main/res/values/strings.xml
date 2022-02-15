@@ -18,4 +18,13 @@
     <string name="articleHead_1">Дружба кота и пса</string>
     <string name="articleHead_2">Дружба кота и пса</string>
     <string name="articleHead_3">Дружба кота и пса</string>
+    <string name="create_badge">Create Badge</string>
+    <string name="titleForMenu1">news</string>
+    <string name="titleForMenu2">tech</string>
+    <string name="titleForMenu3">politic</string>
+    <string name="search">search</string>
+    <string name="filter">Filter</string>
+    <string name="choose_filters">Choose filters</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
 </resources>
