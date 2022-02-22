@@ -3,6 +3,9 @@ package com.panko.viewpagerdialog
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.badge.BadgeDrawable
@@ -13,30 +16,19 @@ import kotlin.math.max
 import kotlin.random.Random
 
 class ViewpagerFragment : Fragment(R.layout.fragment_viewpager) {
-    private val screens: List<ArticleScreen> = listOf(
-        ArticleScreen(R.string.article_1, R.drawable.viewpager_cat_and_dog),
-        ArticleScreen(R.string.article_1, R.drawable.viewpager_cat_and_dog),
-        ArticleScreen(R.string.article_1, R.drawable.viewpager_cat_and_dog)
-    )
-    private val articleTags = arrayOf("NEWS",
-    "POLITIC",
-    "TECH")
-    private val checkedTags = BooleanArray(
-        articleTags.size)
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val screens = requireArguments().getParcelableArrayList<ArticleScreen>(KEY_SCREEN_ARRAY)!!.toList()
         val adapter = ArticleAdapter(screens, this)
-
         viewpager.adapter = adapter
         dots_indicator.setViewPager2(viewpager)
-        TabLayoutMediator(tabLayout, viewpager) { tab, position ->
+        TabLayoutMediator(tabLayout, viewpager) { tab, _ ->
             tab.text = getString(R.string.articleHead_1)
         }.attach()
-      for(i in checkedTags.indices){
-          checkedTags[i] = true
-      }
+
         buttonBadge.setOnClickListener {
            val randomIndex = Random.nextInt(0,tabLayout.tabCount)
             if (tabLayout.selectedTabPosition!=randomIndex){
@@ -53,20 +45,10 @@ class ViewpagerFragment : Fragment(R.layout.fragment_viewpager) {
 
         }
         toolbar.setOnMenuItemClickListener {
-            when (it.itemId)
-            {
-                R.id.filterMenuButton->{
-                AlertDialog.Builder(activity)
-                    .setTitle("Выберете категории")
-                    .setMultiChoiceItems(articleTags,checkedTags){_,which: Int,isChecked:Boolean->
-                        checkedTags[which]=isChecked
-                    }
-                    .create()
-                    .show()
-                    print(checkedTags.toString())
-                    true}
-                else -> false
-            }
+
+                    FilterDialogFragment().show(childFragmentManager,"filterTagDialog")
+            true
+
         }
 
         viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
@@ -87,9 +69,9 @@ class ViewpagerFragment : Fragment(R.layout.fragment_viewpager) {
                         }
                         position <= 1 -> { // [-1,1]
 
-                            page.scaleX = max(MIN_SCALE, 1 - abs(position));
-                            page.scaleY = max(MIN_SCALE, 1 - abs(position));
-                            page.alpha = max(MIN_ALPHA, 1 - abs(position));
+                            page.scaleX = max(MIN_SCALE, 1 - abs(position))
+                            page.scaleY = max(MIN_SCALE, 1 - abs(position))
+                            page.alpha = max(MIN_ALPHA, 1 - abs(position))
 
                         }
                         else -> { // (1,+Infinity]
@@ -102,5 +84,15 @@ class ViewpagerFragment : Fragment(R.layout.fragment_viewpager) {
             })
         }
 
-
+    companion object{
+        private const val KEY_SCREEN_ARRAY = "Key_screen_array"
+        fun newInstance(screens: ArrayList<ArticleScreen>):ViewpagerFragment{
+            return ViewpagerFragment().withArguments { putParcelableArrayList(KEY_SCREEN_ARRAY, screens) }
+        }
     }
+
+
+
+
+}
+
