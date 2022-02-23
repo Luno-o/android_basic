@@ -15,20 +15,23 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.random.Random
 
-class ViewpagerFragment : Fragment(R.layout.fragment_viewpager) {
-
+class ViewpagerFragment : Fragment(R.layout.fragment_viewpager) , FilterClickListener{
+    private var checkedTags: BooleanArray = BooleanArray(ArticleTag.values().size)
+    private val screens: List<ArticleScreen> = mutableListOf(
+            ArticleScreen(R.string.article_1, R.drawable.viewpager_cat_and_dog,ArticleTag.NEWS),
+            ArticleScreen(R.string.article_1, R.drawable.viewpager_cat_and_dog, ArticleTag.POLITIC),
+            ArticleScreen(R.string.article_1, R.drawable.viewpager_cat_and_dog,ArticleTag.TECH)
+    )
+    private var filteredScreens = java.util.ArrayList<ArticleScreen>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val screens = requireArguments().getParcelableArrayList<ArticleScreen>(KEY_SCREEN_ARRAY)!!.toList()
-        val adapter = ArticleAdapter(screens, this)
-        viewpager.adapter = adapter
-        dots_indicator.setViewPager2(viewpager)
-        TabLayoutMediator(tabLayout, viewpager) { tab, _ ->
-            tab.text = getString(R.string.articleHead_1)
-        }.attach()
+        if(filteredScreens.isEmpty()) {
+            filteredScreens.addAll(screens)
 
+        }
+        setViewpager(filteredScreens)
         buttonBadge.setOnClickListener {
            val randomIndex = Random.nextInt(0,tabLayout.tabCount)
             if (tabLayout.selectedTabPosition!=randomIndex){
@@ -84,15 +87,36 @@ class ViewpagerFragment : Fragment(R.layout.fragment_viewpager) {
             })
         }
 
-    companion object{
-        private const val KEY_SCREEN_ARRAY = "Key_screen_array"
-        fun newInstance(screens: ArrayList<ArticleScreen>):ViewpagerFragment{
-            return ViewpagerFragment().withArguments { putParcelableArrayList(KEY_SCREEN_ARRAY, screens) }
+    override fun onSelectedItems(checkedBoxes: BooleanArray) {
+        for (index in checkedBoxes.indices){
+            checkedTags[index] = checkedBoxes[index]
         }
+        val filteredListOfTags = ArticleTag.values().filter {
+            checkedTags[it.ordinal]
+        }
+        filteredScreens = ArrayList(screens.filter {
+            var hasTag = false
+            for (tag in filteredListOfTags) {
+                if (it.tag == tag) hasTag = true
+
+            }
+
+            hasTag
+        })
+        setViewpager(filteredScreens)
+    }
+    fun getBooleanArray():BooleanArray{
+        return checkedTags
     }
 
+    private fun setViewpager(filteredScreens: ArrayList<ArticleScreen>){
 
-
-
+        val adapter = ArticleAdapter(filteredScreens, this)
+        viewpager.adapter = adapter
+        dots_indicator.setViewPager2(viewpager)
+        TabLayoutMediator(tabLayout, viewpager) { tab, _ ->
+            tab.text = getString(R.string.articleHead_1)
+        }.attach()
+    }
 }
 

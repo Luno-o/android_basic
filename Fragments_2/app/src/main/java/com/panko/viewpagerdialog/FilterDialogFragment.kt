@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,20 +17,22 @@ class FilterDialogFragment:DialogFragment(){
             ArticleTag.TECH.name)
 
     private val filterClickListener: FilterClickListener?
-    get()= activity?.let { it as FilterClickListener }
+    get()= parentFragment?.let { it as FilterClickListener }
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val activity = activity as AppActivity
-        val checkedTags = activity.getBooleanArray()
+        val fragment = parentFragment as ViewpagerFragment
+        val checkedTags = fragment.getBooleanArray()
+        val checkedFilterTag = checkedTags.copyOf()
         return AlertDialog.Builder(requireContext())
                 .setTitle("Выберете категории")
-                .setMultiChoiceItems(articleTags, checkedTags) {_,which: Int, isChecked: Boolean ->
-                    checkedTags[which] = isChecked
+                .setMultiChoiceItems(articleTags, checkedFilterTag) {_,which: Int, isChecked: Boolean ->
+                    checkedFilterTag[which] = isChecked
                 }
                 .setNegativeButton("Cancel"){_,_->dialog?.dismiss() }
                 .setPositiveButton("Accept"){_,_->
-                    filterClickListener?.onSelectedItems(checkedTags)
+                    if (checkedFilterTag.contentEquals(checkedTags)) dialog?.dismiss()
+                    else filterClickListener?.onSelectedItems(checkedFilterTag)
                 }
                 .create()
     }
