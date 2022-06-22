@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Lists1</string>
+    <string name="choose_parameters">Выберете параметры транспорта</string>
+    <string name="choose_model">Выберете модель %1$s</string>
+    <string name="choose_displacement">Введите водоизмещение</string>
+    <string name="choose_flightRange">Введите дальность полета</string>
+    <string name="choose_fuelConsumption">Введите размер бака с топливом</string>
+    <string name="enter_model">Введите модель</string>
+    <string name="enter_displacement">Введите водоизмещение</string>
+    <string name="displacement">Водоизмещение %1$s</string>
+    <string name="fuelConsumption">Топливный бак %1$s</string>
+    <string name="flight_range">Дальность полета %1$s</string>
+    <string name="model">Модель: %1$s</string>
+    <string name="serial_number">Серийный номер: %1$s</string>
+    <string name="enter_flightRange">Введите дальность полета</string>
+    <string name="enter_fuelConsumption">Вместимость топливного бака</string>
+    <string name="add_transport">Add Transport</string>
+    <string name="aircraft">Воздушного транспорта</string>
+    <string name="watercraft">Водного транспорта</string>
+    <string name="road_transport">Дорожного транспорта</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
+    <array name="transports_array">
+        <item>Aircraft</item>
+        <item>Watercraft</item>
+        <item>Road Transport</item>
+    </array>
 </resources>
