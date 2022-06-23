@@ -20,6 +20,7 @@
     <string name="road_transport">Дорожного транспорта</string>
     <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>
+    <string name="transport_list_empty">Список транспорта пуст</string>
     <array name="transports_array">
         <item>Aircraft</item>
         <item>Watercraft</item>

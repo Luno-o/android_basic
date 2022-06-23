@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -17,7 +19,7 @@ class ListFragment : Fragment(R.layout.fragment_list), TransportClickListener {
 
 
         if (savedInstanceState !== null) {
-                transportsArrayList =savedInstanceState.getParcelableArrayList(TRANSPORT_KEY)
+                transportsArrayList =arguments?.getParcelableArrayList(TRANSPORT_KEY)
                 Log.d("load", "in let ${transportsArrayList?.size}")
                 if (transportsArrayList !== null) {
                     transports = transportsArrayList!!.toList()
@@ -34,6 +36,7 @@ class ListFragment : Fragment(R.layout.fragment_list), TransportClickListener {
     }
 
     private fun initList() {
+        emptyTransport.isVisible = transports.isEmpty()
         transportAdapter = TransportAdapter {
             deleteTransport(it)
         }
@@ -51,6 +54,7 @@ class ListFragment : Fragment(R.layout.fragment_list), TransportClickListener {
         transportAdapter?.updateTransports(transports)
         transportAdapter?.notifyItemInserted(0)
         transportList.scrollToPosition(0)
+        emptyTransport.isVisible = transports.isEmpty()
 
     }
 
@@ -59,11 +63,13 @@ class ListFragment : Fragment(R.layout.fragment_list), TransportClickListener {
         transports = transports.filterIndexed { index, _ -> index != position }
         transportAdapter?.updateTransports(transports)
         transportAdapter?.notifyItemRemoved(position)
+        emptyTransport.isVisible = transports.isEmpty()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         transportAdapter = null
+
     }
 
     companion object {
