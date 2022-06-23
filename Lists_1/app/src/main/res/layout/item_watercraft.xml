@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#2F548B">
+    android:background="?attr/selectableItemBackground">
 
     <ImageView
         android:scaleType="centerCrop"

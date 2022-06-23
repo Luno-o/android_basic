@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/design_default_color_on_secondary">
+    android:background="@color/teal_200">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transportList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="5"
-        android:paddingBottom="80dp"
-android:clipToPadding="false"
-        tools:listitem="@layout/item_watercraft"
-        />
+        tools:listitem="@layout/item_watercraft" />
 
     <TextView
         android:id="@+id/emptyTransport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/transport_list_empty"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/transportList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/transport_list_empty"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="20sp"/>
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/addFab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:backgroundTint="@color/design_default_color_primary_dark"
-    android:src="@drawable/ic_add_card"
-    app:tint= "@color/white"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:layout_margin="16dp"
-    app:fabSize="normal"
-    android:contentDescription="@string/add_transport" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/design_default_color_primary_dark"
+        android:contentDescription="@string/add_transport"
+        android:src="@drawable/ic_add_card"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
