@@ -13,19 +13,9 @@ import kotlinx.android.synthetic.main.fragment_list.*
 class ListFragment : Fragment(R.layout.fragment_list), TransportClickListener {
 
     private var transports = emptyList<Transport>()
-    private var transportsArrayList:java.util.ArrayList<Transport>? = java.util.ArrayList<Transport>()
     private var transportAdapter: TransportAdapter? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
-        if (savedInstanceState !== null) {
-                transportsArrayList =arguments?.getParcelableArrayList(TRANSPORT_KEY)
-                Log.d("load", "in let ${transportsArrayList?.size}")
-                if (transportsArrayList !== null) {
-                    transports = transportsArrayList!!.toList()
-                    Log.d("load", "number ${transports.size}")
-                }
-            }
+        super.onViewCreated(view, savedInstanceState)
 
         initList()
         transportAdapter?.updateTransports(transports)
@@ -33,6 +23,7 @@ class ListFragment : Fragment(R.layout.fragment_list), TransportClickListener {
         addFab.setOnClickListener {
             TransportDialogFragment.newInstance().show(childFragmentManager, "Dialog Fragment")
         }
+        retainInstance = true
     }
 
     private fun initList() {
@@ -72,16 +63,5 @@ class ListFragment : Fragment(R.layout.fragment_list), TransportClickListener {
 
     }
 
-    companion object {
-        private const val TRANSPORT_KEY = "Transport key"
-
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        transportsArrayList?.addAll(transports)
-        arguments?.putParcelableArrayList(TRANSPORT_KEY,transportsArrayList)
-
-    }
 
 }
