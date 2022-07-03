@@ -8,7 +8,8 @@ import com.example.lists1.inflate
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import kotlinx.android.synthetic.main.item_aircraft.*
 
-class AircraftAdapterDelegate(private val onItemClick: (position: Int) -> Unit): AbsListItemAdapterDelegate<Transport.AirCraft, Transport,AircraftAdapterDelegate.AircraftHolder>() {
+class AircraftAdapterDelegate(private val onItemClick: (position: Int) -> Unit)
+    : AbsListItemAdapterDelegate<Transport.AirCraft, Transport,AircraftAdapterDelegate.AircraftHolder>() {
 
 
     override fun isForViewType(

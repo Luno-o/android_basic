@@ -8,7 +8,8 @@ import com.example.lists1.inflate
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import kotlinx.android.synthetic.main.item_watercraft.*
 
-class WatecraftAdapterDelegate(private val onItemClick: (position: Int) -> Unit): AbsListItemAdapterDelegate<Transport.WaterCraft,Transport,WatecraftAdapterDelegate.WatercraftHolder>() {
+class WatercraftAdapterDelegate(private val onItemClick: (position: Int) -> Unit)
+    : AbsListItemAdapterDelegate<Transport.WaterCraft,Transport,WatercraftAdapterDelegate.WatercraftHolder>() {
 
     override fun isForViewType(
         item: Transport,
