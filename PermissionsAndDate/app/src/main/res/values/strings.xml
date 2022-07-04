@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">PermissionsAndDate</string>
+    <string name="Access">Разрешить</string>
+    <string name="info_permission">Для отображения списка локаций необходимо разрешение</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_result_text">Результата еще нет</string>
+    <string name="get_result_text">Получить</string>
+    <string name="get_result_again_text">Заново</string>
+    <string name="send_result_text">Вернуть</string>
+    <string name="enter_result_text">Введите число</string>
+    <string name="camera_rationale_title">Разрешить доступ к камере?</string>
+    <string name="camera_rationale_text">Приложению требуется доступ к камере для фотографирования.\nВы сможете отозвать доступ через меню настроек в любой момент.</string>
+    <string name="camera_rationale_button">Разрешить</string>
+    <string name="camera_dont_ask_title">Доступ к камере запрещен…</string>
+    <string name="camera_dont_ask_text">Приложению требуется доступ к камере для фотографирования.\nПожалуйста, предоставьте доступ в меню настроек.</string>
+    <string name="camera_dont_ask_button">Настройки</string>
+    <string name="something_wrong">Что-то пошло не так…</string>
+    <string name="denied_toast">Доступ запрещен</string>
+    <string name="no_location_for_viewing">Нет локаций для отображения</string>
+    <string name="getLocation">Получить локацию</string>
+    <string name="location_info">Широта: %1$s \nДолгота: %2$s \nВысота: %3$s \nТочность: %4$s \nСкорость: %5$s</string>
+</resources>
