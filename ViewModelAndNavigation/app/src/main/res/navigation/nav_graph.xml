@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.viewmodelandnavigation.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_buttonFragment"
+            app:destination="@id/buttonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buttonFragment"
+        android:name="com.example.viewmodelandnavigation.ButtonFragment"
+        android:label="fragment_button"
+        tools:layout="@layout/fragment_button" >
+        <action
+            android:id="@+id/action_buttonFragment_to_listFragmentLayout"
+            app:destination="@id/listFragmentLayout" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/listFragmentLayout"
+        android:name="com.example.viewmodelandnavigation.ListFragmentLayout"
+        android:label="ListFragmentLayout"
+        tools:layout = "@layout/fragment_list">
+
+        <action
+            android:id="@+id/action_listFragmentLayout_to_transportDialogFragment"
+            app:destination="@id/transportDialogFragment" />
+        <argument
+            android:name="layoutType"
+            app:argType="integer"
+            android:defaultValue="1" />
+        <action
+            android:id="@+id/action_listFragmentLayout_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/transportDialogFragment"
+        android:name="com.example.viewmodelandnavigation.TransportDialogFragment"
+        android:label="fragment_transport_dialog"
+        tools:layout="@layout/fragment_transport_dialog" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.viewmodelandnavigation.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="transport"
+            app:argType="com.example.viewmodelandnavigation.Transport" />
+    </fragment>
+</navigation>
