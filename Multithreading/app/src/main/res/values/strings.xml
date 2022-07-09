@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Multithreading</string>
+    <string name="menu_refresh">" "</string>
+    <string name="thread_count_hint">Укажите количество потоков</string>
+    <string name="increment_count_hint">Укажите величину инкремента</string>
+    <string name="async_button_text">Асинхронный пуск</string>
+    <string name="sync_button_text">Синхронный пуск</string>
+    <string name="result_value_text">Ожидаемое значение %1$d Полученый результат %2$d</string>
 </resources>
