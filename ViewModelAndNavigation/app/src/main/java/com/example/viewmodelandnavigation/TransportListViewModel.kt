@@ -15,15 +15,6 @@ private val showToastLiveData = SingleLiveEvent<Unit>()
 val showToast:SingleLiveEvent<Unit>
 get() = showToastLiveData
 
-private val transportMapViewModel
-get() = mutableMapOf<Int,Transport>().apply {
-    for (transport in transports.value!!){
-        this[transport.id] = transport
-    }
-}
-    val transportMap: Map<Int,Transport>
-    get() = transportMapViewModel
-
     fun addTransport(transport: Transport){
         val updatedList= listOf(transport) + transportLiveData.value.orEmpty()
         transportLiveData.postValue(updatedList)

@@ -10,7 +10,9 @@ import com.example.viewmodelandnavigation.inflate
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import kotlinx.android.synthetic.main.item_aircraft.*
 
-class AircraftAdapterDelegate(private val onLongItemClick: (position: Int) -> Unit,private val onItemClick: (position: Int) -> Unit): AbsListItemAdapterDelegate<Transport.AirCraft, Transport,AircraftAdapterDelegate.AircraftHolder>() {
+class AircraftAdapterDelegate(private val onLongItemClick: (position: Int) -> Unit,
+                              private val onItemClick: (position: Int) -> Unit):
+    AbsListItemAdapterDelegate<Transport.AirCraft, Transport,AircraftAdapterDelegate.AircraftHolder>() {
 
 
     override fun isForViewType(
