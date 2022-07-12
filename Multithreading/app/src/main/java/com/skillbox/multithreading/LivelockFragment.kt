@@ -21,14 +21,12 @@ class LivelockFragment : Fragment() {
             Log.d("Deadlock", "Start1")
 
             (0..1000000).forEach {
-
                 synchronized(lock1) {
                     try {
                         while (!lock2.isHeldByCurrentThread) {
                             Log.d("Deadlock", "Lock1 locked")
                         }
                         lock1.unlock()
-                        i++
                     } finally {
                         lock1.unlock()
                         lock2.unlock()
@@ -45,6 +43,7 @@ class LivelockFragment : Fragment() {
                     try {
                         while (!lock1.isHeldByCurrentThread) {
                             Log.d("Deadlock", "Lock2 locked")
+
                         }
 lock2.unlock()
 
