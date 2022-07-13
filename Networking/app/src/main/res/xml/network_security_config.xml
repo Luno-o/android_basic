@@ -7,7 +7,7 @@
 <network-security-config>
 
 
-   <domain-config>
+   <domain-config cleartextTrafficPermitted="true">
        <domain includeSubdomains="true">www.omdbapi.com</domain>
        <trust-anchors>
            <certificates src="system"/>

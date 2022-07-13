@@ -47,6 +47,10 @@
     <string name="enter_year">Enter year</string>
     <string name="search">Search</string>
     <string name="type_of_film">Type of film</string>
+    <string name="movie_info">Tittle: %1$s \nOMDBID: %2$s \nYear: %3$s \nType: %4$s
+
+    </string>
+    <string name="retry">Retry</string>
     <array name="menu_dropdown">
         <item>Serial</item>
         <item>Movie</item>
