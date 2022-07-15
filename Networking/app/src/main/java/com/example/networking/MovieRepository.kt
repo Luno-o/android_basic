@@ -2,6 +2,8 @@ package com.example.networking
 
 import android.util.Log
 import com.example.networking.network.Network
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -11,12 +13,10 @@ class MovieRepository {
 
     fun search(
         movieTittle: String,
-        movieYear: String,
-        movieType: String,
         callback: (List<Movie>) -> Unit,
         errorCallback: (e: Throwable)-> Unit
     ):Call {
-        return Network.getSearchMovieCall(movieTittle,movieYear,movieType).apply {
+        return Network.getSearchMovieCall(movieTittle).apply {
         enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
                 Log.d("Server", "execute request error = ${e.message}")
@@ -42,18 +42,12 @@ class MovieRepository {
     private fun parseMovieResponse(responseBodyString: String): List<Movie> {
         return try {
             val jsonObject = JSONObject(responseBodyString)
-            val movieArray = jsonObject.getJSONArray("Search")
-            (0 until movieArray.length()).map { index ->
-                movieArray.getJSONObject(index)
-            }.map { movieJsonObject ->
-                val title = movieJsonObject.getString("Title")
-                val year = movieJsonObject.getString("Year")
-                val id = movieJsonObject.getString("imdbID")
-                val type = movieJsonObject.getString("Type")
-                val poster = movieJsonObject.getString("Poster")
-                Movie(title,type,year,id,poster)
-            }
-
+            val movieArray = jsonObject.getJSONArray("Search").toString()
+           val moshi = Moshi.Builder().build()
+            val movieListType = Types.newParameterizedType(List::class.java,Movie::class.java)
+            val adapter = moshi.adapter<List<Movie>>(movieListType).nonNull()
+            Log.d("Server", "parse response error = ${movieArray}")
+            adapter.fromJson(movieArray)!!
         } catch (e: JSONException) {
             Log.d("Server", "parse response error = ${e.message}", e)
             emptyList()

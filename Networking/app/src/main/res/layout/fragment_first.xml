@@ -20,6 +20,7 @@
     app:layout_constraintStart_toStartOf="parent"
     android:hint="@string/enter_movie_tittle"/>
         <EditText
+            android:visibility="gone"
             android:id="@+id/movieYearEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
             android:hint="@string/enter_year"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:visibility="gone"
             android:id="@+id/menu"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"

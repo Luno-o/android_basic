@@ -47,9 +47,7 @@ class FirstFragment : Fragment() {
         binding.buttonSearch.setOnClickListener {
             if (binding.movieYearEditText.text.toString() == "") {
                 movieViewModel.searchMovie(
-                    binding.movieTittleEditText.text.toString(),
-                    binding.movieYearEditText.text.toString(),
-                    binding.menu.editText?.text.toString()
+                    binding.movieTittleEditText.text.toString()
                 )
             } else if (binding.movieYearEditText.text.toString().toInt() > 2022
                 || binding.movieYearEditText.text.toString().toInt() < 1900
@@ -57,9 +55,7 @@ class FirstFragment : Fragment() {
                 Toast.makeText(context, "Enter correct year", Toast.LENGTH_SHORT).show()
             } else {
                 movieViewModel.searchMovie(
-                    binding.movieTittleEditText.text.toString(),
-                    binding.movieYearEditText.text.toString(),
-                    binding.menu.editText?.text.toString()
+                    binding.movieTittleEditText.text.toString()
                 )
             }
         }
@@ -117,9 +113,7 @@ class FirstFragment : Fragment() {
             binding.retryButton.visibility = View.VISIBLE
             binding.retryButton.setOnClickListener {
                 movieViewModel.searchMovie(
-                    binding.movieTittleEditText.text.toString(),
-                    binding.movieYearEditText.text.toString(),
-                    binding.menu.editText?.text.toString()
+                    binding.movieTittleEditText.text.toString()
                 )
                 binding.errorTextView.visibility = View.GONE
                 binding.retryButton.visibility = View.GONE

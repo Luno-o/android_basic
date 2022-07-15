@@ -29,7 +29,7 @@ class MovieAdapterDelegate : AbsListItemAdapterDelegate<Movie,Movie,MovieAdapter
         LayoutContainer {
 fun bind(movie: Movie){
 containerView.titleTextView.text = containerView.context.resources.getString(R.string.movie_info,
-    movie.tittle,movie.id,movie.year,movie.type)
+    movie.title,movie.id,movie.year,movie.type,movie.rating.name)
     Glide.with(containerView)
         .load(movie.poster)
         .into(containerView.posterImageView)
