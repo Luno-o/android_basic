@@ -44,12 +44,13 @@ class FirstFragment : Fragment() {
         adapterMovie?.notifyDataSetChanged()
         observeViewModel()
 
+        binding.fab.setOnClickListener {
+addRating()
+        }
         binding.buttonSearch.setOnClickListener {
             if (binding.movieYearEditText.text.toString() == "") {
                 movieViewModel.searchMovie(
-                    binding.movieTittleEditText.text.toString(),
-                    binding.movieYearEditText.text.toString(),
-                    binding.menu.editText?.text.toString()
+                    binding.movieTittleEditText.text.toString()
                 )
             } else if (binding.movieYearEditText.text.toString().toInt() > 2022
                 || binding.movieYearEditText.text.toString().toInt() < 1900
@@ -57,9 +58,7 @@ class FirstFragment : Fragment() {
                 Toast.makeText(context, "Enter correct year", Toast.LENGTH_SHORT).show()
             } else {
                 movieViewModel.searchMovie(
-                    binding.movieTittleEditText.text.toString(),
-                    binding.movieYearEditText.text.toString(),
-                    binding.menu.editText?.text.toString()
+                    binding.movieTittleEditText.text.toString()
                 )
             }
         }
@@ -84,10 +83,7 @@ class FirstFragment : Fragment() {
         movieViewModel.movies.observe(
             viewLifecycleOwner
         ) {
-            Handler().post {
                 adapterMovie?.items = it
-
-            }
         }
         movieViewModel.isLoadingData.observe(viewLifecycleOwner) {
             Log.d("Data", "isLoading = $it")
@@ -117,14 +113,28 @@ class FirstFragment : Fragment() {
             binding.retryButton.visibility = View.VISIBLE
             binding.retryButton.setOnClickListener {
                 movieViewModel.searchMovie(
-                    binding.movieTittleEditText.text.toString(),
-                    binding.movieYearEditText.text.toString(),
-                    binding.menu.editText?.text.toString()
+                    binding.movieTittleEditText.text.toString()
                 )
                 binding.errorTextView.visibility = View.GONE
                 binding.retryButton.visibility = View.GONE
             }
         }
+        movieViewModel.hasMovieData.observe(viewLifecycleOwner){
+            Log.d("Server", "hasMovie observer = $it")
+            binding.errorTextView.text = "No Movie for this title"
+            binding.errorTextView.visibility = View.VISIBLE
+            binding.retryButton.visibility = View.VISIBLE
+            binding.retryButton.setOnClickListener {
+                movieViewModel.searchMovie(
+                    binding.movieTittleEditText.text.toString()
+                )
+                binding.errorTextView.visibility = View.GONE
+                binding.retryButton.visibility = View.GONE
+            }
+        }
+    }
+    private fun addRating(){
+movieViewModel.addRating()
     }
 
     override fun onDestroyView() {

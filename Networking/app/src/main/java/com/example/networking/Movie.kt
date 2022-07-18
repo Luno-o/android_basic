@@ -16,7 +16,7 @@ data class Movie(
     @Json(name = "Poster")
     val poster: String,
     @Json(name = "Rated")
-    val rating: MovieRating
-//    @Json(name = "ratings")
-//    val scores: List<Score>
+    val rating: MovieRating,
+   @Json(name = "Ratings")
+    val scores: MutableMap<String,String>
 )

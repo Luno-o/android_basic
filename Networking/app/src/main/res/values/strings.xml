@@ -49,7 +49,6 @@
     <string name="type_of_film">Type of film</string>
     <string name="movie_info">Tittle: %1$s \nOMDBID: %2$s \nYear: %3$s \nType: %4$s \n
         rating: %5$s \nScores: %6$s
-
     </string>
     <string name="retry">Retry</string>
     <array name="menu_dropdown">

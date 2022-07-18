@@ -28,8 +28,12 @@ class MovieAdapterDelegate : AbsListItemAdapterDelegate<Movie,Movie,MovieAdapter
     class MovieHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
         LayoutContainer {
 fun bind(movie: Movie){
+    var scoreString = StringBuilder()
+    for (score in movie.scores){
+        scoreString = scoreString.append(""+score.key+": " + score.value).append("\n")
+    }
 containerView.titleTextView.text = containerView.context.resources.getString(R.string.movie_info,
-    movie.tittle,movie.id,movie.year,movie.type)
+    movie.title,movie.id,movie.year,movie.type,movie.rating.name,scoreString)
     Glide.with(containerView)
         .load(movie.poster)
         .into(containerView.posterImageView)

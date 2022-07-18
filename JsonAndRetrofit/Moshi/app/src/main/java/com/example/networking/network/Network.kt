@@ -12,20 +12,18 @@ object Network {
         .addNetworkInterceptor(CustomHeaderInterceptor())
         .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
-    fun getSearchMovieCall(movieTitle: String,year : String,type: String): Call {
+    fun getSearchMovieCall(movieTitle: String): Call {
 
-    //http://www.omdbapi.com/?apikey=[yourkey]&s
-    val url = HttpUrl.Builder()
-        .scheme("http")
-        .host("www.omdbapi.com")
-        .addQueryParameter("s",movieTitle)
-        .addQueryParameter("y",year)
-        .addQueryParameter("type",type)
-        .build()
-    val request = Request.Builder()
-        .get()
-        .url(url)
-        .build()
+        //http://www.omdbapi.com/?apikey=[yourkey]&s
+        val url = HttpUrl.Builder()
+            .scheme("http")
+            .host("www.omdbapi.com")
+            .addQueryParameter("t",movieTitle)
+            .build()
+        val request = Request.Builder()
+            .get()
+            .url(url)
+            .build()
         return client.newCall(request)
     }
 }

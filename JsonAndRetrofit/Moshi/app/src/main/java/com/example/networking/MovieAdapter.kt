@@ -1,5 +1,6 @@
 package com.example.networking
 
+import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 

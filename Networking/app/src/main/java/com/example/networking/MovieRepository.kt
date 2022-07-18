@@ -13,7 +13,7 @@ class MovieRepository {
 
     fun search(
         movieTittle: String,
-        callback: (List<Movie>) -> Unit,
+        callback: (Movie) -> Unit,
         errorCallback: (e: Throwable)-> Unit
     ):Call {
         return Network.getSearchMovieCall(movieTittle).apply {
@@ -27,8 +27,8 @@ class MovieRepository {
                 if (response.isSuccessful){
                 val responseString = response.body?.string().orEmpty()
                 Log.d("Server", "response = $responseString")
-                val movies = parseMovieResponse(responseString)
-                callback(movies)
+                val movie = parseMovieResponse(responseString)
+                callback(movie)
                 } else{
                 //    errorCallback(response.message)
                 }
@@ -39,18 +39,23 @@ class MovieRepository {
 
     }
 
-    private fun parseMovieResponse(responseBodyString: String): List<Movie> {
+    private fun parseMovieResponse(responseBodyString: String): Movie {
         return try {
             val jsonObject = JSONObject(responseBodyString)
-            val movieArray = jsonObject.getJSONArray("Search").toString()
-           val moshi = Moshi.Builder().build()
-            val movieListType = Types.newParameterizedType(List::class.java,Movie::class.java)
-            val adapter = moshi.adapter<List<Movie>>(movieListType).nonNull()
-            Log.d("Server", "parse response error = ${movieArray}")
-            adapter.fromJson(movieArray)!!
+            val string:String =jsonObject.getString("Response")
+            if (string == "False"){
+                Movie("",0,"","","",MovieRating.PG, mutableMapOf())
+            }
+            else{
+           val moshi = Moshi.Builder()
+               .add(MovieScoreToMapAdapter())
+               .build()
+            val adapter = moshi.adapter(Movie::class.java).nonNull()
+            adapter.fromJson(responseBodyString)!!
+            }
         } catch (e: JSONException) {
             Log.d("Server", "parse response error = ${e.message}", e)
-            emptyList()
+            Movie("",0,"","","",MovieRating.PG, mutableMapOf())
         }
 
     }

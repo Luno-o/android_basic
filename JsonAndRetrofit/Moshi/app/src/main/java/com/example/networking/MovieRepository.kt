@@ -2,6 +2,8 @@ package com.example.networking
 
 import android.util.Log
 import com.example.networking.network.Network
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -11,12 +13,10 @@ class MovieRepository {
 
     fun search(
         movieTittle: String,
-        movieYear: String,
-        movieType: String,
-        callback: (List<Movie>) -> Unit,
+        callback: (Movie) -> Unit,
         errorCallback: (e: Throwable)-> Unit
     ):Call {
-        return Network.getSearchMovieCall(movieTittle,movieYear,movieType).apply {
+        return Network.getSearchMovieCall(movieTittle).apply {
         enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
                 Log.d("Server", "execute request error = ${e.message}")
@@ -27,8 +27,8 @@ class MovieRepository {
                 if (response.isSuccessful){
                 val responseString = response.body?.string().orEmpty()
                 Log.d("Server", "response = $responseString")
-                val movies = parseMovieResponse(responseString)
-                callback(movies)
+                val movie = parseMovieResponse(responseString)
+                callback(movie)
                 } else{
                 //    errorCallback(response.message)
                 }
@@ -39,24 +39,23 @@ class MovieRepository {
 
     }
 
-    private fun parseMovieResponse(responseBodyString: String): List<Movie> {
+    private fun parseMovieResponse(responseBodyString: String): Movie {
         return try {
             val jsonObject = JSONObject(responseBodyString)
-            val movieArray = jsonObject.getJSONArray("Search")
-            (0 until movieArray.length()).map { index ->
-                movieArray.getJSONObject(index)
-            }.map { movieJsonObject ->
-                val title = movieJsonObject.getString("Title")
-                val year = movieJsonObject.getString("Year")
-                val id = movieJsonObject.getString("imdbID")
-                val type = movieJsonObject.getString("Type")
-                val poster = movieJsonObject.getString("Poster")
-                Movie(title,type,year,id,poster)
+            val string:String =jsonObject.getString("Response")
+            if (string == "False"){
+                Movie("",0,"","","",MovieRating.PG, mutableMapOf())
             }
-
+            else{
+           val moshi = Moshi.Builder()
+               .add(MovieScoreToMapAdapter())
+               .build()
+            val adapter = moshi.adapter(Movie::class.java).nonNull()
+            adapter.fromJson(responseBodyString)!!
+            }
         } catch (e: JSONException) {
             Log.d("Server", "parse response error = ${e.message}", e)
-            emptyList()
+            Movie("",0,"","","",MovieRating.PG, mutableMapOf())
         }
 
     }

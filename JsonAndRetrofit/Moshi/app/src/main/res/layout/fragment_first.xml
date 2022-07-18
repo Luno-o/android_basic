@@ -20,6 +20,7 @@
     app:layout_constraintStart_toStartOf="parent"
     android:hint="@string/enter_movie_tittle"/>
         <EditText
+            android:visibility="gone"
             android:id="@+id/movieYearEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
             android:hint="@string/enter_year"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:visibility="gone"
             android:id="@+id/menu"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
@@ -61,6 +63,7 @@
             app:layout_constraintEnd_toEndOf="@+id/recyclerViewMovie"
             app:layout_constraintStart_toStartOf="@+id/recyclerViewMovie"
             app:layout_constraintTop_toBottomOf="@+id/button_search" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMovie"
             android:layout_width="match_parent"
@@ -98,5 +101,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/errorTextView"
             app:layout_constraintVertical_bias="0.573" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:fabSize="normal"
+            android:layout_margin="16dp"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

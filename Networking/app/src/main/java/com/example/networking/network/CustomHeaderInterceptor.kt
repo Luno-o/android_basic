@@ -9,13 +9,12 @@ class CustomHeaderInterceptor (
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 
-val newUrl = originalRequest.url.newBuilder()
-    .addQueryParameter("apikey", MOVIE_API_KEY)
-    .build()
+        val newUrl = originalRequest.url.newBuilder()
+            .addQueryParameter("apikey", MOVIE_API_KEY)
+            .build()
         val modifiedRequest = originalRequest.newBuilder()
             .url(newUrl)
             .build()
-        val response = chain.proceed(modifiedRequest)
-        return response
+        return chain.proceed(modifiedRequest)
     }
 }
