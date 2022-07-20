@@ -28,12 +28,12 @@ private val args:DetailFragmentArgs by navArgs()
             is Transport.WaterCraft->{
                 view.let { Glide.with(it).load(transport.imageLink).into(transportDetailImageView) }
                 transportDetailModelTextView.text = view.resources.getString(R.string.model, transport.model)
-                flightRangeDetailTextView.text = view.resources?.getString(R.string.flight_range, transport.displacement)
+                flightRangeDetailTextView.text = view.resources?.getString(R.string.displacement, transport.displacement)
             }
             is Transport.RoadTransport->{
                 view.let { Glide.with(it).load(transport.imageLink).into(transportDetailImageView) }
                 transportDetailModelTextView.text = view.resources.getString(R.string.model, transport.model)
-                flightRangeDetailTextView.text = view.resources.getString(R.string.flight_range, transport.fuelConsumption)
+                flightRangeDetailTextView.text = view.resources.getString(R.string.fuelConsumption, transport.fuelConsumption)
             }
         }
     }

@@ -5,10 +5,10 @@ import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.skillbox.github.network.RemoteRepository
 import com.skillbox.github.network.RemoteUser
 
-class RepositoryAdapter : AsyncListDifferDelegationAdapter<RemoteRepository>(RepositoryDiffUtilCallback()){
+class RepositoryAdapter(onItemClick: (position: Int) -> Unit) : AsyncListDifferDelegationAdapter<RemoteRepository>(RepositoryDiffUtilCallback()){
 
     init {
-        delegatesManager.addDelegate(RepositoryAdapterDelegate())
+        delegatesManager.addDelegate(RepositoryAdapterDelegate(onItemClick))
     }
 
     class RepositoryDiffUtilCallback: DiffUtil.ItemCallback<RemoteRepository>(){
