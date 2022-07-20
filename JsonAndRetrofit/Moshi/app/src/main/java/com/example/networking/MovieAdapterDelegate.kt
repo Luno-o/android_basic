@@ -32,8 +32,11 @@ fun bind(movie: Movie){
     for (score in movie.scores){
         scoreString = scoreString.append(""+score.key+": " + score.value).append("\n")
     }
+    val year:String = if(movie.year == 1900){
+        "N/A"
+    }else movie.year.toString()
 containerView.titleTextView.text = containerView.context.resources.getString(R.string.movie_info,
-    movie.title,movie.id,movie.year,movie.type,movie.rating.name,scoreString)
+    movie.title,movie.id,year,movie.type,movie.rating.name,scoreString)
     Glide.with(containerView)
         .load(movie.poster)
         .into(containerView.posterImageView)

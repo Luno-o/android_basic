@@ -12,9 +12,14 @@ class MovieScoreToMapAdapter {
 for (score in remoteMovie.scores){
     movieMap[score.source] = score.value
 }
+    var year: Int
+    if (remoteMovie.year.toIntOrNull() == null)
+    {
+        year = 1900
+    }else year=remoteMovie.year.toInt()
         return Movie(
             title = remoteMovie.title,
-            year = remoteMovie.year,
+            year = year,
             id = remoteMovie.id,
             type = remoteMovie.type,
             poster = remoteMovie.poster,
@@ -30,7 +35,7 @@ for (score in remoteMovie.scores){
     }
         return RemoteMovie(
             title = movie.title,
-            year = movie.year,
+            year = movie.year.toString(),
             id = movie.id,
             type = movie.type,
             poster = movie.poster,
@@ -44,7 +49,7 @@ for (score in remoteMovie.scores){
         @Json(name = "Title")
         val title: String,
         @Json(name = "Year")
-        val year: Int,
+        val year: String,
         @Json(name = "imdbID")
         val id: String,
         @Json(name = "Type")
