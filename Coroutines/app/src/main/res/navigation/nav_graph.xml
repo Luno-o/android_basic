@@ -27,9 +27,6 @@
         <action
             android:id="@+id/action_mainFragment_to_repositoryListFragment"
             app:destination="@id/repositoryListFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_basicCoroutineFragment"
-            app:destination="@id/basicCoroutineFragment" />
     </fragment>
     <fragment
         android:id="@+id/currentUserFragment"
@@ -52,9 +49,4 @@
             android:name="repository"
             app:argType="com.skillbox.github.network.RemoteRepository" />
     </fragment>
-    <fragment
-        android:id="@+id/basicCoroutineFragment"
-        android:name="com.skillbox.github.ui.BasicCoroutineFragment"
-        android:label="fragment_basic_coroutine"
-        tools:layout="@layout/fragment_basic_coroutine" />
 </navigation>

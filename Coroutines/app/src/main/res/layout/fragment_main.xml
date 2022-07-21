@@ -18,11 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/main_repositories" />
-    <Button
-        android:id="@+id/basicCoroutineButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/basic_coroutine_fragment" />
+
 
 </LinearLayout>
