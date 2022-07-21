@@ -8,7 +8,7 @@
         android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
 android:textSize="20sp"
-        android:text="info user"
+        android:text="@string/info_user"
         android:layout_height="wrap_content"
      android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,4 +29,13 @@ android:textSize="20sp"
         android:id="@+id/avatarImageView"
         android:layout_width="200dp"
         android:layout_height="300dp"/>
+
+    <TextView
+        android:id="@+id/followingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatarImageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

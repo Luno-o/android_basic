@@ -5,11 +5,16 @@ import retrofit2.http.*
 
 interface GitHubApi {
     @GET("/user")
-    fun searchUser(
-    ):Call<RemoteUser>
+   suspend fun searchUser(
+    ):RemoteUser
+
+    @GET("/user/following")
+   suspend fun userFollows(
+    ):List<RemoteUser>
 
     @GET("/repositories")
-    fun searchRepo(): Call<List<RemoteRepository>>
+    suspend fun searchRepo(
+    ): List<RemoteRepository>
 
     @GET("/user/starred/{owner}/{repo}")
     fun isStarred(

@@ -4,106 +4,106 @@ import android.util.Log
 import com.skillbox.github.network.Network
 import com.skillbox.github.network.RemoteRepository
 import com.skillbox.github.network.RemoteUser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.RuntimeException
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class RepoRepository {
-    fun getRepo(onComplete: (List<RemoteRepository>)->Unit,
-                onError: (Throwable)->Unit){
-        Network.gitHubApi.searchRepo().enqueue(
-            object : Callback<List<RemoteRepository>>{
-                override fun onResponse(
-                    call: Call<List<RemoteRepository>>,
-                    response: Response<List<RemoteRepository>>
-                ) {
-                    if (response.isSuccessful){
-                        response.body()?.let {
-                            onComplete(it) }
-                    }else{
-onError(RuntimeException("Incorrect status code"))
-                    }
-                }
+   suspend fun getRepo():List<RemoteRepository>{
+      return withContext(Dispatchers.Default){
+          val response =  Network.gitHubApi.searchRepo()
+          response
+       }
 
-                override fun onFailure(call: Call<List<RemoteRepository>>, t: Throwable) {
-                    onError(t)
-                }
-
-            }
-        )
     }
-    fun checkStarred(
+
+    suspend fun checkStarred(
         ownerName: String,
-        repoName: String,
-        onComplete: (Boolean)->Unit,
-        onError: (Throwable)->Unit
-    ){
+        repoName: String
+    ): Boolean{
+        return suspendCancellableCoroutine { continuation->
+continuation.invokeOnCancellation {
+    Network.gitHubApi.isStarred(ownerName,repoName).cancel()
+}
         Network.gitHubApi.isStarred(ownerName,repoName).enqueue(
             object : Callback<Boolean>{
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if (response.code()==204){
                         Log.d("Response"," Response code ${response.code()}")
-                        onComplete(true)
-                    }else onComplete(false)
+                       continuation.resume(true)
+                    }else continuation.resume(false)
                 }
-
                 override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                    onError(t)
+                    continuation.resumeWithException(t)
                 }
 
             }
         )
+        }
     }
 
-    fun putStar(
+   suspend fun putStar(
         ownerName: String,
         repoName: String,
-        onComplete: (Boolean)->Unit,
-        onError: (Throwable)->Unit
     ){
-        Network.gitHubApi.putStar(ownerName,repoName).enqueue(
+        suspendCancellableCoroutine{continuation->
+            val call = Network.gitHubApi.putStar(ownerName,repoName)
+            continuation.invokeOnCancellation {
+                call.cancel()
+            }
+       call.enqueue(
             object : Callback<Unit>{
                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                     if(response.isSuccessful){
-                        onComplete(true)
+                        continuation.resume(Unit)
+                    }else if (response.code() == 304){
+                            continuation.resumeWithException(error("Not add try again"))
+                        }
+
+                }
+
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                    continuation.resumeWithException(t)
+                }
+
+            }
+        )
+        }
+    }
+   suspend fun unStar(
+        ownerName: String,
+        repoName: String,
+   ){
+       suspendCancellableCoroutine { continuation->
+           val call = Network.gitHubApi.unStar(ownerName,repoName)
+           continuation.invokeOnCancellation {
+               call.cancel()
+           }
+        call.enqueue(
+            object : Callback<Unit>{
+                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                    if(response.isSuccessful){
+                        continuation.resume(Unit)
                     }else{
                         if (response.code() == 304){
-                            onComplete(false)
+                            continuation.resumeWithException(error("Not deleted try again"))
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    onError(t)
+                    continuation.resumeWithException(t)
                 }
 
             }
         )
-    }
-    fun unStar(
-        ownerName: String,
-        repoName: String,
-        onComplete: (Boolean)->Unit,
-        onError: (Throwable)->Unit
-    ){
-        Network.gitHubApi.unStar(ownerName,repoName).enqueue(
-            object : Callback<Unit>{
-                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                    if(response.isSuccessful){
-                        onComplete(true)
-                    }else{
-                        if (response.code() == 304){
-                            onComplete(false)
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    onError(t)
-                }
-
-            }
-        )
+       }
     }
 }

@@ -17,6 +17,9 @@ class MainFragment: Fragment(R.layout.fragment_main) {
         repositoryListButton.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToRepositoryListFragment())
         }
+        basicCoroutineButton.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToBasicCoroutineFragment())
+        }
     }
 
 }

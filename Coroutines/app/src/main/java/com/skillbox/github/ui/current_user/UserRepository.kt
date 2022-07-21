@@ -9,27 +9,10 @@ import retrofit2.Response
 import java.lang.RuntimeException
 
 class UserRepository {
-    fun getUser(onComplete: (RemoteUser)->Unit,
-    onError: (Throwable)->Unit){
-        Network.gitHubApi.searchUser().enqueue(
-            object : Callback<RemoteUser> {
-                override fun onResponse(
-                    call: Call<RemoteUser>,
-                    response: Response<RemoteUser>
-                ) {
-                        Log.d("onComplete", "response = ${response.body()}")
-                    if (response.isSuccessful){
-                        response.body()?.let { onComplete(it) }
-                    }else{
-                        onError(RuntimeException("incorrect status code"))
-                    }
-                }
-
-                override fun onFailure(call: Call<RemoteUser>, t: Throwable) {
-                    onError(t)
-                }
-
-            }
-        )
+   suspend fun getUser(): RemoteUser{
+       return Network.gitHubApi.searchUser()
+    }
+    suspend fun getUserFollows(): List<RemoteUser>{
+        return Network.gitHubApi.userFollows()
     }
 }
