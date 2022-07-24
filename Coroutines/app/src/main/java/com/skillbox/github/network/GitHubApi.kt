@@ -14,7 +14,7 @@ interface GitHubApi {
 
     @GET("/repositories")
     suspend fun searchRepo(
-    ): List<RemoteRepository>
+    ): Call<List<RemoteRepository>>
 
     @GET("/user/starred/{owner}/{repo}")
     fun isStarred(

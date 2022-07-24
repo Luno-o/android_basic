@@ -18,8 +18,10 @@ import kotlin.coroutines.suspendCoroutine
 class RepoRepository {
    suspend fun getRepo():List<RemoteRepository>{
       return withContext(Dispatchers.Default){
-          val response =  Network.gitHubApi.searchRepo()
-          response
+          val response =  Network.gitHubApi.searchRepo().execute()
+          if (response.isSuccessful){
+              response.body().orEmpty()
+          }else emptyList()
        }
 
     }
