@@ -35,9 +35,8 @@ resources.assets.open("text.txt")
     .use {
        val text = it.readText()
         downloadListAssets = text.lines()
-        Log.d("MainFragment", text)
     }
-            lifecycleScope.launch(Dispatchers.IO){
+            lifecycleScope.launch{
             downloadListAssets.map {
                 viewModel.getFileWithDownloadManager(fragment,it)
             }
