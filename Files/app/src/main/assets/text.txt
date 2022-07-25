@@ -1,0 +1,4 @@
+https://github.com/Kotlin/kotlinx.serialization/raw/master/README.md
+https://github.com/Kotlin/kotlinx.serialization/raw/master/CHANGELOG.md
+https://github.com/Kotlin/kotlinx-datetime/raw/master/README.md
+https://github.com/Kotlin/kotlinx-datetime/raw/master/CHANGELOG.md
