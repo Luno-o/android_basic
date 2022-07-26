@@ -19,27 +19,46 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import java.io.File
 import java.util.concurrent.Flow
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 
 class Repository(private val context: Context) {
     private var downloadID: Long = 0
+    private val downloadingLiveEvent = MutableLiveData<Boolean>()
     private val sharedPrefs: SharedPreferences by lazy {
        context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE)
     }
- fun save(key: String,value: String){
-        sharedPrefs.edit()
+    val downloadingLiveData: LiveData<Boolean>
+    get() = downloadingLiveEvent
+
+private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+suspend fun save(key: String,value: String){
+
+    Log.d("save"," start $key $value")
+coroutineScope.launch {
+       val deffered = coroutineScope.async {
+    sharedPrefs.edit()
             .putString(key,value)
             .apply()
+     Log.d("saved","$key $value")
+       }
+    deffered.await()
+    downloadingLiveEvent.postValue(false)
+}
+
+
+
 }
     fun isFirstStart(): Boolean{
         return if (!sharedPrefs.getBoolean(FIRST_START,false)){
@@ -59,15 +78,18 @@ suspend fun getFile(url : String): ResponseBody{
      //https://gitlab.skillbox.ru/pavlenko_nikolai/android_basic/-/blob/master/Files/README.md
    //https://github.com/Kotlin/kotlinx.coroutines/raw/81e17dd37003a7105e542eb725f51ee0dc353354/README.md
 }
-    suspend fun downloadManagerDownload(fragment: Fragment,url: String){
-        val downloadManager = context.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        val downloadUri = Uri.parse(url)
 
-        fragment.lifecycleScope.launch(Dispatchers.IO) {
-            val folder =fragment. requireContext().getExternalFilesDir("external_storage/files/")
+    suspend fun downloadManagerDownload(contextfr: Context,url: String){
+        val downloadManager = contextfr.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+        val downloadUri = Uri.parse(url)
+        coroutineScope.launch (Dispatchers.IO){
+            val folder =contextfr.getExternalFilesDir("external_storage/files/")
             var fileName = url.substring(url.lastIndexOf("/") + 1)
             fileName = "${System.currentTimeMillis()}_$fileName"
             val file = File(folder,fileName)
+
+            downloadingLiveEvent.postValue(true)
+
             try {
                 val request: DownloadManager.Request = DownloadManager.Request(downloadUri)
                     .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
@@ -79,38 +101,28 @@ suspend fun getFile(url : String): ResponseBody{
                     .setAllowedOverRoaming(true)
                 downloadID = downloadManager.enqueue(request)
                 val query= DownloadManager.Query().setFilterById(downloadID)
-                fragment.lifecycleScope.launchWhenStarted {
-                    var downloading = true
+                coroutineScope.launch(Dispatchers.IO){
+
                     var progress: Int = 0
-                    while (downloading){
+                Log.d("Repository","${downloadingLiveEvent.value}")
+                    while (downloadingLiveEvent.value == true){
 
                         val cursor = downloadManager.query(query)
                         if(cursor.moveToFirst()){
                             when(cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))){
-                                DownloadManager.STATUS_FAILED-> {
-                                    file.delete()
-                                    downloading = false
-                                    fragment.lifecycleScope.launch{
-                                        fragment.progressBar.visibility = View.GONE
-                                        fragment.editTextTextPersonName.isEnabled = true
-                                        fragment.button2.isEnabled = true
-                                    }}
-                                DownloadManager.STATUS_PAUSED ->       fragment.lifecycleScope.launch{
-                                    fragment.progressBar.visibility = View.GONE
-                                    fragment.editTextTextPersonName.isEnabled = true
-                                    fragment.button2.isEnabled = true
+                                DownloadManager.STATUS_FAILED-> { file.delete()
+                                    Log.d("Repository","failed ${downloadingLiveEvent.value}")
+                                    downloadingLiveEvent.postValue(false)
                                 }
-                                DownloadManager.STATUS_PENDING ->       fragment.lifecycleScope.launch{
-                                    fragment.progressBar.visibility = View.GONE
-                                    fragment.editTextTextPersonName.isEnabled = true
-                                    fragment.button2.isEnabled = true
+                                DownloadManager.STATUS_PAUSED -> {
+                                    Log.d("Repository","paused ${downloadingLiveEvent.value}")
+                                downloadingLiveEvent.postValue(false)
+                                }
+                                DownloadManager.STATUS_PENDING -> {
+
                                 }
                                 DownloadManager.STATUS_RUNNING->{
-                                    fragment.lifecycleScope.launch{
-                                        fragment.progressBar.visibility = View.VISIBLE
-                                        fragment.editTextTextPersonName.isEnabled = false
-                                        fragment.button2.isEnabled = false
-                                    }
+                                    Log.d("Repository","running ${downloadingLiveEvent.value}")
                                     val total = cursor.getLong(cursor
                                         .getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
                                     if (total >= 0){
@@ -120,34 +132,25 @@ suspend fun getFile(url : String): ResponseBody{
                                 }
                                 DownloadManager.STATUS_SUCCESSFUL->{
                                     progress = 100
-                                    Toast.makeText(fragment.context, "Download $fileName Completed", Toast.LENGTH_SHORT)
-                                        .show()
-                                    downloading = false
+                                    Log.d("Repository","success ${downloadingLiveEvent.value}")
                                     save(url,fileName)
-                                    fragment.lifecycleScope.launch{
-                                        delay(1000)
-                                        fragment.progressBar.visibility = View.GONE
-                                        fragment.editTextTextPersonName.isEnabled = true
-                                        fragment.button2.isEnabled = true
+                                    withContext(Dispatchers.Main){
+                                    Toast.makeText(contextfr, "Download $fileName Completed", Toast.LENGTH_SHORT)
+                                        .show()
                                     }
                                 }
-
-
                             }
                         }
                         cursor.close()
                     }
-
                 }
+
+
             }catch (t: Throwable){
-                fragment.lifecycleScope.launch{
-                    fragment.progressBar.visibility = View.GONE
+
                 }
             }
         }
-
-
-    }
     companion object{
         const val SHARED_PREF_NAME = "files_shared_prefs"
         private val FIRST_START = "first_start"

@@ -11,7 +11,8 @@ import com.skillbox.multithreading.inflate
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_repo.view.*
 
-class RepositoryAdapterDelegate(private val onItemClick: (position: Int) -> Unit) : AbsListItemAdapterDelegate<RemoteRepository,RemoteRepository,RepositoryAdapterDelegate.Holder>(){
+class RepositoryAdapterDelegate(private val onItemClick: (position: Int) -> Unit)
+    : AbsListItemAdapterDelegate<RemoteRepository,RemoteRepository,RepositoryAdapterDelegate.Holder>(){
 
 
     override fun isForViewType(

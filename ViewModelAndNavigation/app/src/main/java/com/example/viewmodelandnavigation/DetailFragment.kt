@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-private val args:DetailFragmentArgs by navArgs()
+private val args:DetailFragmmaentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

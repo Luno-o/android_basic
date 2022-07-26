@@ -8,9 +8,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.filles.network.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +17,7 @@ import java.io.File
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 private val repository = Repository(application)
+ val isDownloading = repository.downloadingLiveData
 
     suspend fun getFile(url: String,context: Context){
         if (!repository.isDownloaded(url)){
@@ -47,11 +46,11 @@ private val repository = Repository(application)
         }
 
     }
-     suspend fun getFileWithDownloadManager(fragment: MainFragment,url: String){
+     suspend fun getFileWithDownloadManager(context: Context,url: String){
          if (!repository.isDownloaded(url)){
-        repository.downloadManagerDownload(fragment,url)}
+        repository.downloadManagerDownload(context,url)}
          else{
-             Toast.makeText(fragment.context, "Already Downloaded", Toast.LENGTH_SHORT)
+             Toast.makeText(context, "Already Downloaded", Toast.LENGTH_SHORT)
                  .show()
          }
     }
@@ -63,4 +62,5 @@ private val repository = Repository(application)
     fun isFirstStart():Boolean{
         return repository.isFirstStart()
     }
+
 }

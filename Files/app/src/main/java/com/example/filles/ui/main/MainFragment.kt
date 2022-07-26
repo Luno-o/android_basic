@@ -24,10 +24,11 @@ import java.io.File
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels()
-private val fragment = this
+
     private var downloadListAssets = emptyList<String>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeViewModel()
         if (viewModel.isFirstStart()){
         try {
 resources.assets.open("text.txt")
@@ -38,7 +39,7 @@ resources.assets.open("text.txt")
     }
             lifecycleScope.launch{
             downloadListAssets.map {
-                viewModel.getFileWithDownloadManager(fragment,it)
+                viewModel.getFileWithDownloadManager(requireContext(),it)
             }
             }
         }catch (t :Throwable){
@@ -54,10 +55,32 @@ viewModel.getFile(editTextTextPersonName.text.toString(),requireContext())
         button2.setOnClickListener {
 
             lifecycleScope.launch{
-            viewModel.getFileWithDownloadManager(fragment,editTextTextPersonName.text.toString())
+            viewModel.getFileWithDownloadManager(requireContext(),editTextTextPersonName.text.toString())
             }
         }
     }
+private fun isDownloading(isDownloading: Boolean){
+    Log.d("mainfragment","$isDownloading")
+    if (isDownloading){
+        lifecycleScope.launch{
 
+        progressBar.visibility = View.VISIBLE
+        editTextTextPersonName.isEnabled = false
+        button2.isEnabled = false
+        }
+    }else{
+    lifecycleScope.launch{
+        delay(500)
+        progressBar.visibility = View.GONE
+        editTextTextPersonName.isEnabled = true
+        button2.isEnabled = true
+    }
+    }
+}
+    private fun observeViewModel(){
+        viewModel.isDownloading.observe(viewLifecycleOwner){
+            isDownloading(it)
+        }
+    }
 
 }
