@@ -36,57 +36,59 @@ class Repository(private val context: Context) {
     private var downloadID: Long = 0
     private val downloadingLiveEvent = MutableLiveData<Boolean>()
     private val sharedPrefs: SharedPreferences by lazy {
-       context.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE)
+        context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
     }
     val downloadingLiveData: LiveData<Boolean>
-    get() = downloadingLiveEvent
+        get() = downloadingLiveEvent
 
-private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
-suspend fun save(key: String,value: String){
+    suspend fun save(key: String, value: String) {
 
-    Log.d("save"," start $key $value")
-coroutineScope.launch {
-       val deffered = coroutineScope.async {
-    sharedPrefs.edit()
-            .putString(key,value)
-            .apply()
-     Log.d("saved","$key $value")
-       }
-    deffered.await()
-    downloadingLiveEvent.postValue(false)
-}
+        Log.d("save", " start $key $value")
+        coroutineScope.launch {
+            val deffered = coroutineScope.async {
+                sharedPrefs.edit()
+                    .putString(key, value)
+                    .apply()
+                Log.d("saved", "$key $value")
+            }
+            deffered.await()
+            downloadingLiveEvent.postValue(false)
+        }
 
 
+    }
 
-}
-    fun isFirstStart(): Boolean{
-        return if (!sharedPrefs.getBoolean(FIRST_START,false)){
-        sharedPrefs.edit()
-            .putBoolean(FIRST_START,true)
+    fun isFirstStart(): Boolean {
+        return if (!sharedPrefs.getBoolean(FIRST_START, false)) {
+            sharedPrefs.edit()
+                .putBoolean(FIRST_START, true)
             true
-        }else false
+        } else false
 
     }
-    fun isDownloaded(key: String) :Boolean{
-        return !sharedPrefs.getString(key,"").isNullOrBlank()
+
+    fun isDownloaded(key: String): Boolean {
+        return !sharedPrefs.getString(key, "").isNullOrBlank()
     }
-suspend fun getFile(url : String): ResponseBody{
 
-   return Network.api.getFile(url)
+    suspend fun getFile(url: String): ResponseBody {
 
-     //https://gitlab.skillbox.ru/pavlenko_nikolai/android_basic/-/blob/master/Files/README.md
-   //https://github.com/Kotlin/kotlinx.coroutines/raw/81e17dd37003a7105e542eb725f51ee0dc353354/README.md
-}
+        return Network.api.getFile(url)
 
-    suspend fun downloadManagerDownload(contextfr: Context,url: String){
+        //https://gitlab.skillbox.ru/pavlenko_nikolai/android_basic/-/blob/master/Files/README.md
+        //https://github.com/Kotlin/kotlinx.coroutines/raw/81e17dd37003a7105e542eb725f51ee0dc353354/README.md
+    }
+
+    suspend fun downloadManagerDownload(contextfr: Context, url: String) {
         val downloadManager = contextfr.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         val downloadUri = Uri.parse(url)
-        coroutineScope.launch (Dispatchers.IO){
-            val folder =contextfr.getExternalFilesDir("external_storage/files/")
+        coroutineScope.launch(Dispatchers.IO) {
+            val folder = contextfr.getExternalFilesDir("external_storage/files/")
             var fileName = url.substring(url.lastIndexOf("/") + 1)
             fileName = "${System.currentTimeMillis()}_$fileName"
-            val file = File(folder,fileName)
+            val file = File(folder, fileName)
 
             downloadingLiveEvent.postValue(true)
 
@@ -100,43 +102,51 @@ suspend fun getFile(url : String): ResponseBody{
                     .setAllowedOverMetered(true)
                     .setAllowedOverRoaming(true)
                 downloadID = downloadManager.enqueue(request)
-                val query= DownloadManager.Query().setFilterById(downloadID)
-                coroutineScope.launch(Dispatchers.IO){
+                val query = DownloadManager.Query().setFilterById(downloadID)
+                coroutineScope.launch(Dispatchers.IO) {
 
                     var progress: Int = 0
-                Log.d("Repository","${downloadingLiveEvent.value}")
-                    while (downloadingLiveEvent.value == true){
+                    Log.d("Repository", "${downloadingLiveEvent.value}")
+                    while (downloadingLiveEvent.value == true) {
 
                         val cursor = downloadManager.query(query)
-                        if(cursor.moveToFirst()){
-                            when(cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))){
-                                DownloadManager.STATUS_FAILED-> { file.delete()
-                                    Log.d("Repository","failed ${downloadingLiveEvent.value}")
+                        if (cursor.moveToFirst()) {
+                            when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+                                DownloadManager.STATUS_FAILED -> {
+                                    file.delete()
+                                    Log.d("Repository", "failed ${downloadingLiveEvent.value}")
                                     downloadingLiveEvent.postValue(false)
                                 }
                                 DownloadManager.STATUS_PAUSED -> {
-                                    Log.d("Repository","paused ${downloadingLiveEvent.value}")
-                                downloadingLiveEvent.postValue(false)
+                                    Log.d("Repository", "paused ${downloadingLiveEvent.value}")
+                                    downloadingLiveEvent.postValue(false)
                                 }
                                 DownloadManager.STATUS_PENDING -> {
 
                                 }
-                                DownloadManager.STATUS_RUNNING->{
-                                    Log.d("Repository","running ${downloadingLiveEvent.value}")
-                                    val total = cursor.getLong(cursor
-                                        .getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
-                                    if (total >= 0){
-                                        val downloaded = cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
-                                        progress = (downloaded*100L/total).toInt()
+                                DownloadManager.STATUS_RUNNING -> {
+                                    Log.d("Repository", "running ${downloadingLiveEvent.value}")
+                                    val total = cursor.getLong(
+                                        cursor
+                                            .getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)
+                                    )
+                                    if (total >= 0) {
+                                        val downloaded =
+                                            cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                                        progress = (downloaded * 100L / total).toInt()
                                     }
                                 }
-                                DownloadManager.STATUS_SUCCESSFUL->{
+                                DownloadManager.STATUS_SUCCESSFUL -> {
                                     progress = 100
-                                    Log.d("Repository","success ${downloadingLiveEvent.value}")
-                                    save(url,fileName)
-                                    withContext(Dispatchers.Main){
-                                    Toast.makeText(contextfr, "Download $fileName Completed", Toast.LENGTH_SHORT)
-                                        .show()
+                                    Log.d("Repository", "success ${downloadingLiveEvent.value}")
+                                    save(url, fileName)
+                                    withContext(Dispatchers.Main) {
+                                        Toast.makeText(
+                                            contextfr,
+                                            "Download $fileName Completed",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
                                     }
                                 }
                             }
@@ -146,12 +156,13 @@ suspend fun getFile(url : String): ResponseBody{
                 }
 
 
-            }catch (t: Throwable){
+            } catch (t: Throwable) {
 
-                }
             }
         }
-    companion object{
+    }
+
+    companion object {
         const val SHARED_PREF_NAME = "files_shared_prefs"
         private val FIRST_START = "first_start"
         private const val DATASTORE_NAME = "datastore"
