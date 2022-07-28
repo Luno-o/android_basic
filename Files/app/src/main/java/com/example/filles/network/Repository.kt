@@ -121,6 +121,7 @@ if (url.isNotBlank()){
                                     downloadingLiveEvent.postValue(false)
                                 }
                                 DownloadManager.STATUS_PAUSED -> {
+                                    downloadManager.remove(downloadID)
                                     Log.d("Repository", "paused ${downloadingLiveEvent.value}")
                                     downloadingLiveEvent.postValue(false)
                                 }
