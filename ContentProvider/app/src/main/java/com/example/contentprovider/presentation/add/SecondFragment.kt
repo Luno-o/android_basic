@@ -44,12 +44,15 @@ private fun saveContactWithPermissionCheck(){
         onNeverAskAgain = :: onContactPermissionNeverAskAgain,
         onPermissionDenied = :: onContactPermissionDenied,
         requiresPermission = {viewModel.save(
-            name = nameEditText.text.toString(),
+            name = getFullName(),
             phone = phoneEditText.text.toString(),
             email = mailEditText.text.toString()
         )}
     ).launch()
 }
+    private fun getFullName():String{
+       return nameEditText.text.toString() + " " + secondNameEditText.text.toString()
+    }
     private fun bindViewModel(){
         binding.addNewContactButton.setOnClickListener {
             saveContactWithPermissionCheck()

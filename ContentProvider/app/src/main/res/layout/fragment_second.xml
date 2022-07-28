@@ -19,6 +19,17 @@
         android:autofillHints="Name"/>
 
     <EditText
+        android:id="@+id/secondNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameEditText"
+        android:layout_margin="20dp"
+        android:hint="@string/second_name"
+        android:inputType="text"
+        android:autofillHints="Name"/>
+    <EditText
         android:id="@+id/phoneEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +39,7 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/secondNameEditText" />
     <EditText
         android:id="@+id/mailEditText"
         android:layout_width="match_parent"

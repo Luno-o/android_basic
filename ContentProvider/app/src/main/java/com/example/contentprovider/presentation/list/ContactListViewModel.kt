@@ -25,7 +25,6 @@ class ContactListViewModel(application: Application): AndroidViewModel(applicati
     fun loadList(){
         viewModelScope.launch {
             try {
-                Log.d("ViewModel","${contactRepository.getAllContacts()}")
             contactsMutableLiveData.postValue(contactRepository.getAllContacts())
             }catch (t: Throwable){
                 Log.e("ContactListViewModel","contact list error",t)

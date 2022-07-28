@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.contentprovider.R
+import com.example.contentprovider.data.Contact
 import com.example.contentprovider.databinding.FragmentContactListBinding
 import com.example.contentprovider.presentation.list.adapters.ContactListAdapter
 import com.example.contentprovider.utils.autoCleared
@@ -62,7 +63,7 @@ class ContactListFragment : Fragment() {
     }
 
     private fun initList() {
-        contactAdapter = ContactListAdapter(viewModel::callToContact)
+        contactAdapter = ContactListAdapter( ::toDetailFragment)
         with(binding.contactList) {
             adapter = contactAdapter
             layoutManager = LinearLayoutManager(context)
@@ -70,9 +71,11 @@ class ContactListFragment : Fragment() {
         }
     }
 
-    private fun toDetailFragment(){
-        val action = ContactListFragmentDirections.actionContactListFragmentToSecondFragment()
-        findNavController()
+    private fun toDetailFragment(contact: Contact){
+        val action = ContactListFragmentDirections.actionContactListFragmentToDetailFragment(
+            contact
+        )
+        findNavController().navigate(action)
     }
     private fun bindViewModel() {
         viewModel.contactsLiveData.observe(viewLifecycleOwner) {

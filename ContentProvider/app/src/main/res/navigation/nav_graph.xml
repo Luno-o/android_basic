@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_ContactListFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_ContactListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -25,6 +28,18 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_ContactListFragment"
+            app:destination="@id/ContactListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.contentprovider.presentation.detailInfo.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="contact"
+            app:argType="com.example.contentprovider.data.Contact" />
+        <action
+            android:id="@+id/action_detailFragment_to_ContactListFragment"
             app:destination="@id/ContactListFragment" />
     </fragment>
 </navigation>
