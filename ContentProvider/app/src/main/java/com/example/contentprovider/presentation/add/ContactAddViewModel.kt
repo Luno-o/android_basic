@@ -19,14 +19,16 @@ class ContactAddViewModel(application: Application): AndroidViewModel(applicatio
 
     val saveErrorLiveData: LiveData<Unit>
     get() = saveErrorLiveEvent
-    fun save(name:String,phone: String){
+
+    fun save(name:String, phone: String, email: String = ""){
         viewModelScope.launch {
             try {
-                contactRepository.saveContact(name,phone)
+                contactRepository.saveContact(name,phone,email)
                 saveSuccessLiveEvent.postValue(Unit)
             }catch (t: Throwable){
                 Log.e("ContactAddViewModel","contact add error",t)
             }
         }
     }
+
 }

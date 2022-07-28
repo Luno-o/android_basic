@@ -18,7 +18,7 @@ import java.io.File
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 private val repository = Repository(application)
  val isDownloading = repository.downloadingLiveData
-
+private val context = application
     suspend fun getFile(url: String,context: Context){
         if (!repository.isDownloaded(url)){
         viewModelScope.launch(Dispatchers.IO){
@@ -46,9 +46,9 @@ private val repository = Repository(application)
         }
 
     }
-     suspend fun getFileWithDownloadManager(context: Context,url: String){
+     suspend fun getFileWithDownloadManager(url: String){
          if (!repository.isDownloaded(url)){
-        repository.downloadManagerDownload(context,url)}
+        repository.downloadManagerDownload(url)}
          else{
              Toast.makeText(context, "Already Downloaded", Toast.LENGTH_SHORT)
                  .show()

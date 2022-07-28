@@ -28,8 +28,8 @@ class ContactListFragment : Fragment() {
     private var _binding: FragmentContactListBinding? = null
 
     private val binding get() = _binding!!
-private val viewModel: ContactListViewModel by viewModels()
-    private var contactAdapter:ContactListAdapter by autoCleared()
+    private val viewModel: ContactListViewModel by viewModels()
+    private var contactAdapter: ContactListAdapter by autoCleared()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,50 +47,65 @@ private val viewModel: ContactListViewModel by viewModels()
             findNavController().navigate(R.id.action_ContactListFragment_to_SecondFragment)
         }
         bindViewModel()
-        Handler(Looper.getMainLooper()).post{
-constructPermissionsRequest(
-    android.Manifest.permission.READ_CONTACTS,
-    onShowRationale = :: onContactPermissionShowRationale,
-    onNeverAskAgain = :: onContactPermissionNeverAskAgain,
-    onPermissionDenied = :: onContactPermissionDenied,
-    requiresPermission = {viewModel.loadList()
-    Log.d("ContactFragment","loadList")}
-).launch()
+        Handler(Looper.getMainLooper()).post {
+            constructPermissionsRequest(
+                android.Manifest.permission.READ_CONTACTS,
+                onShowRationale = ::onContactPermissionShowRationale,
+                onNeverAskAgain = ::onContactPermissionNeverAskAgain,
+                onPermissionDenied = ::onContactPermissionDenied,
+                requiresPermission = {
+                    viewModel.loadList()
+                    Log.d("ContactFragment", "loadList")
+                }
+            ).launch()
         }
     }
 
-    private fun initList(){
-contactAdapter = ContactListAdapter(viewModel:: callToContact)
-        with(binding.contactList){
+    private fun initList() {
+        contactAdapter = ContactListAdapter(viewModel::callToContact)
+        with(binding.contactList) {
             adapter = contactAdapter
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
         }
     }
-private fun bindViewModel(){
-    viewModel.contactsLiveData.observe(viewLifecycleOwner){
-        contactAdapter.items = it
+
+    private fun toDetailFragment(){
+        val action = ContactListFragmentDirections.actionContactListFragmentToSecondFragment()
+        findNavController()
     }
-    viewModel.callLiveData.observe(viewLifecycleOwner,::callToPhone)
-}
-    private fun callToPhone(phone: String){
+    private fun bindViewModel() {
+        viewModel.contactsLiveData.observe(viewLifecycleOwner) {
+            contactAdapter.items = it
+        }
+        viewModel.callLiveData.observe(viewLifecycleOwner, ::callToPhone)
+    }
+
+    private fun callToPhone(phone: String) {
         Intent(Intent.ACTION_DIAL)
             .apply {
                 data = Uri.parse("tel:$phone")
             }
             .also { startActivity(it) }
     }
-    private fun onContactPermissionShowRationale(request: PermissionRequest){
+
+    private fun onContactPermissionShowRationale(request: PermissionRequest) {
         request.proceed()
     }
-    private fun onContactPermissionDenied(){
-        Toast.makeText(requireContext(), "Доступ к чтению контактов запрещен",
-            Toast.LENGTH_SHORT).show()
+
+    private fun onContactPermissionDenied() {
+        Toast.makeText(
+            requireContext(), "Доступ к чтению контактов запрещен",
+            Toast.LENGTH_SHORT
+        ).show()
     }
-    private fun onContactPermissionNeverAskAgain(){
-        Toast.makeText(requireContext(),
+
+    private fun onContactPermissionNeverAskAgain() {
+        Toast.makeText(
+            requireContext(),
             "Разрешите доступ к чтению контактов в настройках приложения",
-            Toast.LENGTH_SHORT).show()
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onDestroyView() {

@@ -45,7 +45,9 @@ private fun saveContactWithPermissionCheck(){
         onPermissionDenied = :: onContactPermissionDenied,
         requiresPermission = {viewModel.save(
             name = nameEditText.text.toString(),
-            phone = phoneEditText.text.toString())}
+            phone = phoneEditText.text.toString(),
+            email = mailEditText.text.toString()
+        )}
     ).launch()
 }
     private fun bindViewModel(){

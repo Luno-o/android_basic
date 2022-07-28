@@ -12,7 +12,8 @@ import java.util.regex.Pattern
 
 class ContactRepository(private val context: Context) {
     private val phonePattern = Pattern.compile("\\+?[0-9]{3}-?[0-9]{6,12}")
-    suspend fun saveContact(name: String,phone : String){
+    private val emailPattern = Pattern.compile("\\+?[0-9][a-z][A-Z]@?[0-9][a-z][A-Z].?[a-z][A-Z]{2,3}")
+    suspend fun saveContact(name: String,phone : String,email: String){
         withContext(Dispatchers.IO){
             if (phonePattern.matcher(phone).matches().not() || name.isBlank()){
                 throw IncorrectFormException()
@@ -20,6 +21,19 @@ class ContactRepository(private val context: Context) {
           val contactId =  saveRawContact()
             saveContactName(contactId, name)
             saveContactPhone(contactId, phone)
+            if (email!=""&& emailPattern.matcher(email).matches()){
+            saveContactEmail(contactId, email)
+            }
+        }
+    }
+    suspend fun deleteContact(){
+        withContext(Dispatchers.IO){
+context.contentResolver.query(
+    ContactsContract.Contacts.CONTENT_URI,
+    null,
+    "has_name = ? OR phone_number = ?",
+    arrayOf()
+)
         }
     }
     private fun saveRawContact():Long{
@@ -27,6 +41,14 @@ class ContactRepository(private val context: Context) {
         ContentValues())
         Log.d("saveRawContact","uri = $uri")
         return uri?.lastPathSegment?.toLongOrNull()?: error("Cannot save raw contact")
+    }
+    private fun saveContactEmail(contactId: Long,email: String){
+        val contentValues = ContentValues().apply {
+            put(ContactsContract.Data.RAW_CONTACT_ID,contactId)
+            put(ContactsContract.Data.MIMETYPE,ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+            put(ContactsContract.CommonDataKinds.Email.ADDRESS,email)
+        }
+        context.contentResolver.insert(ContactsContract.Data.CONTENT_URI,contentValues)
     }
     private fun saveContactName(contactId: Long,name:String){
         val contentValues = ContentValues().apply {

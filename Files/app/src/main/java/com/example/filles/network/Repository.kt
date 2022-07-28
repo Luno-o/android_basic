@@ -81,16 +81,19 @@ class Repository(private val context: Context) {
         //https://github.com/Kotlin/kotlinx.coroutines/raw/81e17dd37003a7105e542eb725f51ee0dc353354/README.md
     }
 
-    suspend fun downloadManagerDownload(contextfr: Context, url: String) {
-        val downloadManager = contextfr.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+    suspend fun downloadManagerDownload(url: String) {
+        val downloadManager = context.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         val downloadUri = Uri.parse(url)
-        coroutineScope.launch(Dispatchers.IO) {
-            val folder = contextfr.getExternalFilesDir("external_storage/files/")
+
+if (url.isNotBlank()){
+    if(!(downloadUri.scheme.isNullOrBlank() && downloadUri.host.isNullOrBlank())){
+
+            downloadingLiveEvent.postValue(true)
+        withContext(Dispatchers.IO) {
+            val folder = context.getExternalFilesDir("external_storage/files/")
             var fileName = url.substring(url.lastIndexOf("/") + 1)
             fileName = "${System.currentTimeMillis()}_$fileName"
             val file = File(folder, fileName)
-
-            downloadingLiveEvent.postValue(true)
 
             try {
                 val request: DownloadManager.Request = DownloadManager.Request(downloadUri)
@@ -103,7 +106,7 @@ class Repository(private val context: Context) {
                     .setAllowedOverRoaming(true)
                 downloadID = downloadManager.enqueue(request)
                 val query = DownloadManager.Query().setFilterById(downloadID)
-                coroutineScope.launch(Dispatchers.IO) {
+                withContext(Dispatchers.IO) {
 
                     var progress: Int = 0
                     Log.d("Repository", "${downloadingLiveEvent.value}")
@@ -113,7 +116,7 @@ class Repository(private val context: Context) {
                         if (cursor.moveToFirst()) {
                             when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
                                 DownloadManager.STATUS_FAILED -> {
-                                    file.delete()
+                                    downloadManager.remove(downloadID)
                                     Log.d("Repository", "failed ${downloadingLiveEvent.value}")
                                     downloadingLiveEvent.postValue(false)
                                 }
@@ -142,7 +145,7 @@ class Repository(private val context: Context) {
                                     save(url, fileName)
                                     withContext(Dispatchers.Main) {
                                         Toast.makeText(
-                                            contextfr,
+                                            context,
                                             "Download $fileName Completed",
                                             Toast.LENGTH_SHORT
                                         )
@@ -160,6 +163,17 @@ class Repository(private val context: Context) {
 
             }
         }
+    }
+}else{
+    withContext(Dispatchers.Main) {
+        Toast.makeText(
+            context,
+            "Enter correct url",
+            Toast.LENGTH_SHORT
+        )
+            .show()
+    }
+}
     }
 
     companion object {

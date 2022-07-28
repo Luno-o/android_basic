@@ -39,7 +39,7 @@ resources.assets.open("text.txt")
     }
             lifecycleScope.launch{
             downloadListAssets.map {
-                viewModel.getFileWithDownloadManager(requireContext(),it)
+                viewModel.getFileWithDownloadManager(it)
             }
             }
         }catch (t :Throwable){
@@ -55,7 +55,7 @@ viewModel.getFile(editTextTextPersonName.text.toString(),requireContext())
         button2.setOnClickListener {
 
             lifecycleScope.launch{
-            viewModel.getFileWithDownloadManager(requireContext(),editTextTextPersonName.text.toString())
+            viewModel.getFileWithDownloadManager(editTextTextPersonName.text.toString())
             }
         }
     }
