@@ -4,6 +4,7 @@ import android.content.*
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
+import android.provider.MediaStore
 import com.example.contentprovider.BuildConfig
 import com.squareup.moshi.Moshi
 
@@ -37,9 +38,9 @@ private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH).apply {
     ): Cursor? {
 return when(uriMatcher.match(uri)){
     TYPE_USERS->getAllUsersCursor()
-    TYPE_USER_ID->getUserCursor()
+    TYPE_USER_ID->getUserCursor(uri)
     TYPE_COURSES->getAllCoursesCursor()
-    TYPE_COURSE_ID->getCourseCursor()
+    TYPE_COURSE_ID->getCourseCursor(uri)
     else->null
 }
     }
@@ -49,6 +50,7 @@ val allCourses = coursesPrefs.all.mapNotNull {
     val coursesJson = it.value as String
     courseAdapter.fromJson(coursesJson)
 }
+
         val cursor = MatrixCursor(arrayOf(COLUMN_COURSE_ID, COLUMN_COURSE_TITLE))
         allCourses.forEach {
             cursor.newRow()
@@ -57,11 +59,36 @@ val allCourses = coursesPrefs.all.mapNotNull {
         }
         return cursor
     }
-    private fun getCourseCursor():Cursor{
-        coursesPrefs.getString()
+    private fun getCourseCursor(uri: Uri):Cursor{
+       val courseId = uri.lastPathSegment?.toLongOrNull().toString()
+               return if (coursesPrefs.contains(courseId)){
+                   val courseJsonString = coursesPrefs.getString(courseId,"") as String
+                   val course = courseAdapter.fromJson(courseJsonString)
+                   val cursor = MatrixCursor(arrayOf(COLUMN_COURSE_ID, COLUMN_COURSE_TITLE))
+                   cursor.newRow()
+                       .add(course?.id)
+                       .add(course?.title)
+                   cursor
+               }else{
+                   val cursor = MatrixCursor(arrayOf(COLUMN_COURSE_ID, COLUMN_COURSE_TITLE))
+                   cursor
+               }
     }
-    private fun getUserCursor():Cursor{
-
+    private fun getUserCursor(uri: Uri):Cursor{
+val userId= uri.lastPathSegment?.toLongOrNull().toString()
+       return if (userPrefs.contains(userId)){
+            val userJsonString = userPrefs.getString(userId,"") as String
+            val user = userAdapter.fromJson(userJsonString) as User
+            val cursor = MatrixCursor(arrayOf(COLUMN_USER_ID, COLUMN_USER_NAME, COLUMN_USER_AGE))
+            cursor.newRow()
+                .add(user.id)
+                .add(user.name)
+                .add(user.age)
+            cursor
+        }else{
+            val cursor = MatrixCursor(arrayOf(COLUMN_USER_ID, COLUMN_USER_NAME, COLUMN_USER_AGE))
+            cursor
+        }
     }
     private fun getAllUsersCursor():Cursor{
         val allUsers = userPrefs.all.mapNotNull {
@@ -85,11 +112,18 @@ val allCourses = coursesPrefs.all.mapNotNull {
         p1?: return null
         return when(uriMatcher.match(p0)){
             TYPE_USERS->saveUser(p1)
+            TYPE_COURSES->saveCourse(p1)
             else-> null
         }
     }
     private fun saveCourse(contentValues: ContentValues):Uri?{
-
+val id = contentValues.getAsLong(COLUMN_COURSE_ID)?:return null
+        val title = contentValues.getAsString(COLUMN_COURSE_TITLE)?: return null
+        val course = Course(id, title)
+        userPrefs.edit()
+            .putString(id.toString(),courseAdapter.toJson(course))
+            .commit()
+        return Uri.parse("content://$AUTHORITIES/$PATH_COURSES/$id")
     }
     private fun saveUser(contentValues: ContentValues):Uri?{
 val id = contentValues.getAsLong(COLUMN_USER_ID)?: return null
@@ -105,14 +139,28 @@ val user = User(id, name, age)
     override fun delete(p0: Uri, p1: String?, p2: Array<out String>?): Int {
         return when(uriMatcher.match(p0)){
             TYPE_USER_ID->deleteUser(p0)
+            TYPE_COURSE_ID->deleteCourse(p0)
+            TYPE_COURSES->deleteAllCourses()
             else->0
         }
     }
     private fun deleteCourse(uri: Uri):Int{
-
+val id = uri.lastPathSegment?.toLongOrNull().toString()?: return 0
+        return if(coursesPrefs.contains(id)){
+            coursesPrefs.edit()
+                .remove(id)
+                .commit()
+            1
+        }else{
+            0
+        }
     }
-    private fun deleteAllCourses(uri: Uri):Int{
-
+    private fun deleteAllCourses():Int{
+val count = coursesPrefs.all.size
+    coursesPrefs.edit()
+    .clear()
+    .commit()
+        return count
     }
 private fun deleteUser(uri: Uri): Int{
 val userId = uri.lastPathSegment?.toLongOrNull().toString()?: return 0
@@ -129,11 +177,18 @@ userPrefs.edit()
         p1?: return 0
         return when(uriMatcher.match(p0)){
             TYPE_USER_ID->updateUser(p0,p1)
+            TYPE_COURSE_ID->updateCourse(p0,p1)
                 else->0
         }
     }
     private fun updateCourse(uri: Uri,contentValues: ContentValues):Int{
-
+val id = uri.lastPathSegment?.toLongOrNull().toString()?: return 0
+       return if (coursesPrefs.contains(id)){
+           saveCourse(contentValues)
+           1
+        }else{
+            0
+       }
     }
     private fun updateUser(uri:Uri,contentValues: ContentValues): Int{
         val userId = uri.lastPathSegment?.toLongOrNull().toString()?: return 0

@@ -5,6 +5,7 @@ import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Environment
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -48,7 +49,13 @@ private val context = application
     }
      suspend fun getFileWithDownloadManager(url: String){
          if (!repository.isDownloaded(url)){
+             if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED){
         repository.downloadManagerDownload(url)}
+             else{
+                 Toast.makeText(context, "External Storage not available", Toast.LENGTH_SHORT)
+                     .show()
+             }
+             }
          else{
              Toast.makeText(context, "Already Downloaded", Toast.LENGTH_SHORT)
                  .show()
