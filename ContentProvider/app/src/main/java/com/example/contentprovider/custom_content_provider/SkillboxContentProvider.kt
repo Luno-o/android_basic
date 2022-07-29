@@ -37,10 +37,32 @@ private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH).apply {
     ): Cursor? {
 return when(uriMatcher.match(uri)){
     TYPE_USERS->getAllUsersCursor()
+    TYPE_USER_ID->getUserCursor()
+    TYPE_COURSES->getAllCoursesCursor()
+    TYPE_COURSE_ID->getCourseCursor()
     else->null
 }
     }
 
+    private fun getAllCoursesCursor():Cursor{
+val allCourses = coursesPrefs.all.mapNotNull {
+    val coursesJson = it.value as String
+    courseAdapter.fromJson(coursesJson)
+}
+        val cursor = MatrixCursor(arrayOf(COLUMN_COURSE_ID, COLUMN_COURSE_TITLE))
+        allCourses.forEach {
+            cursor.newRow()
+                .add(it.id)
+                .add(it.title)
+        }
+        return cursor
+    }
+    private fun getCourseCursor():Cursor{
+        coursesPrefs.getString()
+    }
+    private fun getUserCursor():Cursor{
+
+    }
     private fun getAllUsersCursor():Cursor{
         val allUsers = userPrefs.all.mapNotNull {
             val userJsonString = it.value as String
@@ -66,6 +88,9 @@ return when(uriMatcher.match(uri)){
             else-> null
         }
     }
+    private fun saveCourse(contentValues: ContentValues):Uri?{
+
+    }
     private fun saveUser(contentValues: ContentValues):Uri?{
 val id = contentValues.getAsLong(COLUMN_USER_ID)?: return null
         val name = contentValues.getAsString(COLUMN_USER_NAME)?: return null
@@ -82,6 +107,12 @@ val user = User(id, name, age)
             TYPE_USER_ID->deleteUser(p0)
             else->0
         }
+    }
+    private fun deleteCourse(uri: Uri):Int{
+
+    }
+    private fun deleteAllCourses(uri: Uri):Int{
+
     }
 private fun deleteUser(uri: Uri): Int{
 val userId = uri.lastPathSegment?.toLongOrNull().toString()?: return 0
@@ -100,6 +131,9 @@ userPrefs.edit()
             TYPE_USER_ID->updateUser(p0,p1)
                 else->0
         }
+    }
+    private fun updateCourse(uri: Uri,contentValues: ContentValues):Int{
+
     }
     private fun updateUser(uri:Uri,contentValues: ContentValues): Int{
         val userId = uri.lastPathSegment?.toLongOrNull().toString()?: return 0
@@ -122,5 +156,7 @@ userPrefs.edit()
         private const val COLUMN_USER_ID = "id"
         private const val COLUMN_USER_NAME = "name"
         private const val COLUMN_USER_AGE = "age"
+        private const val COLUMN_COURSE_ID = "id"
+        private const val COLUMN_COURSE_TITLE = "title"
     }
 }

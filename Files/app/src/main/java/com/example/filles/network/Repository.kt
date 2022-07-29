@@ -61,11 +61,14 @@ class Repository(private val context: Context) {
     }
 
     fun isFirstStart(): Boolean {
-        return if (!sharedPrefs.getBoolean(FIRST_START, false)) {
+        return if (sharedPrefs.getBoolean(FIRST_START, true)) {
             sharedPrefs.edit()
-                .putBoolean(FIRST_START, true)
+                .putBoolean(FIRST_START, false)
+                .apply()
+            Log.d("first start", "true")
             true
-        } else false
+        } else { Log.d("first start", "true")
+        false}
 
     }
 
