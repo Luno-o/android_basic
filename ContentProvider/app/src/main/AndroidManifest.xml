@@ -30,7 +30,8 @@
         <provider
             android:authorities="${applicationId}.provider"
             android:exported="true"
-            android:name=".custom_content_provider.SkillboxContentProvider"/>
+            android:name=".custom_content_provider.SkillboxContentProvider"
+            />
     </application>
 
 </manifest>

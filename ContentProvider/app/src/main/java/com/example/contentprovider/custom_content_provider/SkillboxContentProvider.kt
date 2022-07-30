@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import com.example.contentprovider.BuildConfig
 import com.squareup.moshi.Moshi
 
@@ -57,6 +58,7 @@ val allCourses = coursesPrefs.all.mapNotNull {
                 .add(it.id)
                 .add(it.title)
         }
+        Log.d("contentProvider", "getAllcourses cursor${Thread.currentThread().name}")
         return cursor
     }
     private fun getCourseCursor(uri: Uri):Cursor{
@@ -120,9 +122,11 @@ val userId= uri.lastPathSegment?.toLongOrNull().toString()
 val id = contentValues.getAsLong(COLUMN_COURSE_ID)?:return null
         val title = contentValues.getAsString(COLUMN_COURSE_TITLE)?: return null
         val course = Course(id, title)
-        userPrefs.edit()
+        coursesPrefs.edit()
             .putString(id.toString(),courseAdapter.toJson(course))
             .commit()
+        Log.d("contentProvider", "save course${Thread.currentThread().name}")
+        Thread.currentThread().name
         return Uri.parse("content://$AUTHORITIES/$PATH_COURSES/$id")
     }
     private fun saveUser(contentValues: ContentValues):Uri?{
