@@ -27,5 +27,13 @@
         android:src="@drawable/ic_baseline_person_add"
         app:tint="@color/design_default_color_primary_dark"
         />
+    <Button
+        android:id="@+id/toSharaFragmentButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/to_sharefragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

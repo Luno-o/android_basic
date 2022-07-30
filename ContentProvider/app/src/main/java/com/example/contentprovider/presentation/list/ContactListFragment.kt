@@ -47,6 +47,9 @@ class ContactListFragment : Fragment() {
         binding.addContactButton.setOnClickListener {
             findNavController().navigate(R.id.action_ContactListFragment_to_SecondFragment)
         }
+        binding.toSharaFragmentButton.setOnClickListener {
+            findNavController().navigate(R.id.action_ContactListFragment_to_mainFragment)
+        }
         bindViewModel()
         Handler(Looper.getMainLooper()).post {
             constructPermissionsRequest(
