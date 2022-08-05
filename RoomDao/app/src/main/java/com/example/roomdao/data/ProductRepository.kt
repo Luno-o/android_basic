@@ -25,4 +25,8 @@ class ProductRepository {
                 product.price != 0 &&
                 product.description.isNotBlank()
     }
+
+    suspend fun getProductById(id: Long):Product?{
+        return productDao.getProductById(id)
+    }
 }

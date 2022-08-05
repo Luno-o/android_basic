@@ -10,12 +10,10 @@ import com.example.roomdao.R
 import com.example.roomdao.data.db.models.Product
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_order.view.*
-import kotlinx.android.synthetic.main.item_order.view.titleTextView
 import kotlinx.android.synthetic.main.item_product.view.*
-import timber.log.Timber
 
-class ProductListDelegationAdapter: AbsListItemAdapterDelegate<Product,Product,ProductListDelegationAdapter.Holder>() {
+
+class ProductListDelegationAdapter(val onItemClick: (product: Product)->Unit): AbsListItemAdapterDelegate<Product,Product,ProductListDelegationAdapter.Holder>() {
 
 
 
@@ -24,13 +22,13 @@ class ProductListDelegationAdapter: AbsListItemAdapterDelegate<Product,Product,P
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
-        return Holder(parent.inflate(R.layout.item_product))
+        return Holder(parent.inflate(R.layout.item_product),onItemClick)
     }
 
     override fun onBindViewHolder(item: Product, holder: Holder, payloads: MutableList<Any>) {
         holder.bind(item)
     }
-    class Holder(override val containerView: View) : RecyclerView.ViewHolder(containerView),LayoutContainer{
+    class Holder(override val containerView: View,val onItemClick: (product: Product) -> Unit) : RecyclerView.ViewHolder(containerView),LayoutContainer{
         fun bind(product: Product){
             Log.d("Holder"," product $product")
             containerView.titleTextView.text = product.title
@@ -41,7 +39,7 @@ class ProductListDelegationAdapter: AbsListItemAdapterDelegate<Product,Product,P
                 .placeholder(R.drawable.ic_baseline_ice_skating)
                 .into(containerView.productImageView)
             containerView.addToOrderButton.setOnClickListener {
-                //TODO
+                onItemClick(product)
             }
         }
     }

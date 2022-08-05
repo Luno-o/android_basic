@@ -7,17 +7,16 @@
 
     <TextView
         android:id="@+id/priceTextView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/countTextView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        app:layout_constraintStart_toEndOf="@+id/orderImageView"
+        app:layout_constraintTop_toBottomOf="@+id/orderTitleTextView"
         tools:text="@tools:sample/full_names" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/orderImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="20dp"
@@ -27,23 +26,24 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/orderTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/orderImageView"
+        app:layout_constraintTop_toTopOf="@+id/orderImageView"
         tools:text="@tools:sample/full_names" />
 
     <TextView
         android:id="@+id/countTextView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:layout_margin="20dp"
         android:layout_marginEnd="20dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/titleTextView"
+        app:layout_constraintStart_toEndOf="@+id/priceTextView"
         app:layout_constraintTop_toTopOf="@+id/priceTextView"
         tools:text="@tools:sample/full_names" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.roomdao.data.db
 import androidx.room.*
 import com.example.roomdao.data.db.models.Address
 import com.example.roomdao.data.db.models.AddressContract
+import com.example.roomdao.data.db.models.CustomerWithAddress
 
 @Dao
 interface AddressDao {
@@ -21,4 +22,7 @@ interface AddressDao {
 
     @Update
     suspend fun updateAddress(address: Address)
+
+    @Query("SELECT * FROM ${AddressContract.TABLE_NAME} WHERE ${AddressContract.Columns.ID} = :id")
+    suspend fun getCustomerWithAddress(id: Long):CustomerWithAddress
 }

@@ -5,9 +5,9 @@ import com.example.roomdao.data.db.models.Product
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
-class ProductAdapter: AsyncListDifferDelegationAdapter<Product>(ProductDiffUtillCallback()) {
+class ProductAdapter(onItemClick: (product: Product)->Unit): AsyncListDifferDelegationAdapter<Product>(ProductDiffUtillCallback()) {
     init {
-        delegatesManager.addDelegate(ProductListDelegationAdapter())
+        delegatesManager.addDelegate(ProductListDelegationAdapter(onItemClick))
     }
     class ProductDiffUtillCallback: DiffUtil.ItemCallback<Product>(){
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {

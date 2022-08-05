@@ -1,6 +1,7 @@
 package com.example.roomdao.presentation.product_list
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,6 +30,28 @@ fun addOrder(order: Order){
     fun addOrderPrices(orderPrices: OrderPrices){
         viewModelScope.launch {
         orderPricesRepository.saveOrder(orderPrices)
+        }
+    }
+    fun addProductToOrder(product: Product){
+        viewModelScope.launch {
+val order = orderRepository.getActiveOrder()
+            val orderWithProducts = orderRepository.getOrderWithProducts(order.id)
+            if (orderWithProducts.product.isEmpty()){
+                Log.d("viewmodelProduct"," order with products empty")
+                orderPricesRepository.saveOrder(OrderPrices(
+                 order.id, product.id,1
+                ))
+            }else{
+                Log.d("viewmodelProduct"," not empty")
+                   val orderPricess =  orderPricesRepository.getOrderPrice(order.id)
+                val orderPrice = orderPricess.find { orderPrices ->
+                    orderPrices.productId == product.id
+                }!!
+                val count = orderPrice.count
+                orderPricesRepository.updateOrderPrice(OrderPrices(
+                    order.id, product.id,count+1
+                ))
+            }
         }
     }
     fun loadList(){

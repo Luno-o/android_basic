@@ -16,3 +16,11 @@ data class Product(
     @ColumnInfo(name = ProductContract.Columns.DESCRIPTION)
     val description: String
 )
+
+data class ProductWithCount(
+    val title: String,
+    val price: Int,
+    val avatar: String?,
+    val description: String,
+    val count: Int
+)

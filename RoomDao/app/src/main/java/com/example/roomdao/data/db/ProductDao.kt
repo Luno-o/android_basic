@@ -15,4 +15,7 @@ interface ProductDao{
 
     @Query("SELECT * FROM ${ProductContract.TABLE_NAME}")
     suspend fun getAllProducts(): List<Product>
+
+    @Query("SELECT * FROM ${ProductContract.TABLE_NAME} WHERE ${ProductContract.Columns.ID} = :productId")
+    suspend fun getProductById(productId: Long): Product?
 }

@@ -35,8 +35,8 @@ private val viewModel: ProductListViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.addAddress(Address(1,"Great wall 4"))
-        viewModel.addCustomer(Customer(1,1,"yui@maol.ti",
+       viewModel.addAddress(Address(1,"Great wall 4"))
+       viewModel.addCustomer(Customer(1,1,"yui@maol.ti",
             "23239222","Yui","Hong",null))
         viewModel.addProduct(Product(1,"motorcycle",10000, null,"faster in the world"))
         viewModel.addProduct(Product(2,"bicycle",1000, null,"faster then motorcycle"))
@@ -44,7 +44,7 @@ private val viewModel: ProductListViewModel by viewModels()
         viewModel.addOrder(Order(1,1,OrderStatuses.CREATED
             , Instant.now()
         ))
-        viewModel.addOrderPrices(OrderPrices(1,1,1))
+
         observeViewModel()
 initList()
         viewModel.loadList()
@@ -55,7 +55,7 @@ initList()
     }
 
     private fun initList(){
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter(viewModel::addProductToOrder)
         with(recyclerViewProduct){
             adapter = productAdapter
             layoutManager = LinearLayoutManager(context)

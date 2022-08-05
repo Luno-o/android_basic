@@ -9,7 +9,8 @@ import com.example.roomdao.data.db.models.*
     Customer::class ,
     Order::class,
     Product::class,
-OrderPrices::class
+OrderPrices::class,
+OrderAndProductsCrossRef::class
                      ], version = SkillBoxDatabase.DB_VERSION)
 abstract class SkillBoxDatabase:RoomDatabase() {
 abstract fun addressDao(): AddressDao

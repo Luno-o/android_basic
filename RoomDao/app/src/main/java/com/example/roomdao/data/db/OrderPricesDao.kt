@@ -20,4 +20,7 @@ interface OrderPricesDao {
     @Query("SELECT * FROM ${OrderPricesContract.TABLE_NAME}")
     suspend fun getAllOrderPrices():List<OrderPrices>
 
+    @Query("SELECT * FROM ${OrderPricesContract.TABLE_NAME} WHERE ${OrderPricesContract.Columns.ORDER_ID} = :orderId")
+    suspend fun getOrderPrices(orderId: Long):List<OrderPrices>
+
 }

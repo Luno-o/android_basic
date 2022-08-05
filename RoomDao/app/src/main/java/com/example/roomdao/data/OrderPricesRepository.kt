@@ -7,7 +7,9 @@ import com.example.roomdao.data.db.models.OrderPrices
 class OrderPricesRepository {
     private val orderPricesDao = Database.instance.orderPricesDao()
 
-
+suspend fun updateOrderPrice(orderPrices: OrderPrices){
+    orderPricesDao.updateOrderPrice(orderPrices)
+}
     suspend fun getAllOrders():List<OrderPrices>{
         return orderPricesDao.getAllOrderPrices()
     }
@@ -16,5 +18,9 @@ class OrderPricesRepository {
     }
     suspend fun saveOrder(orderPrices: OrderPrices){
         orderPricesDao.addOrderPrices(orderPrices)
+    }
+
+    suspend fun getOrderPrice(orderId: Long):List<OrderPrices>{
+        return orderPricesDao.getOrderPrices(orderId)
     }
 }
