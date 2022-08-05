@@ -26,7 +26,9 @@ suspend fun getOrderWithProducts(id:Long):OrderWithProducts{
     suspend fun saveOrder(order: Order){
         orderDao.insertOrder(listOf(order))
     }
-
+    suspend fun updateOrder(order: Order){
+        orderDao.updateOrder(order)
+    }
 suspend fun getActiveOrder(): Order{
     val order = getAllOrders().last()
     return if(order.status==OrderStatuses.FINISHED){

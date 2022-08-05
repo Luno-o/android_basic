@@ -22,7 +22,16 @@
         tools:layout="@layout/fragment_order_list">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_SecondFragment_to_deliveryConfirmFragment"
+            app:destination="@id/deliveryConfirmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deliveryConfirmFragment"
+        android:name="com.example.roomdao.presentation.additional.DeliveryConfirmFragment"
+        android:label="fragment_delivery_confirm"
+        tools:layout="@layout/fragment_delivery_confirm" >
+        <action
+            android:id="@+id/action_deliveryConfirmFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

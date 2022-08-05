@@ -19,7 +19,7 @@ data class Order(
     @ColumnInfo(name = OrderContract.Columns.CUSTOMER_ID)
     val customerId:Long,
     @ColumnInfo(name = OrderContract.Columns.STATUS)
-    val status: OrderStatuses
+    var status: OrderStatuses
     ,
     @ColumnInfo(name = OrderContract.Columns.CREATED_AT)
     val createdAt: Instant

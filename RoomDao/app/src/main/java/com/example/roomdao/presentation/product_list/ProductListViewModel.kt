@@ -36,14 +36,15 @@ fun addOrder(order: Order){
         viewModelScope.launch {
 val order = orderRepository.getActiveOrder()
             val orderWithProducts = orderRepository.getOrderWithProducts(order.id)
-            if (orderWithProducts.product.isEmpty()){
+            val orderPricess = orderPricesRepository.getOrderPrice(order.id)
+            if (orderPricess.isEmpty()){
                 Log.d("viewmodelProduct"," order with products empty")
                 orderPricesRepository.saveOrder(OrderPrices(
                  order.id, product.id,1
                 ))
             }else{
                 Log.d("viewmodelProduct"," not empty")
-                   val orderPricess =  orderPricesRepository.getOrderPrice(order.id)
+
                 val orderPrice = orderPricess.find { orderPrices ->
                     orderPrices.productId == product.id
                 }!!

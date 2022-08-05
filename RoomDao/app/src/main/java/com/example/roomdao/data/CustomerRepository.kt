@@ -9,8 +9,8 @@ class CustomerRepository {
 private val thisCustomer = Customer(1,1,"yui@maol.ti",
     "23239222","Yui","Hong",null)
 
-    suspend fun getOwnerCustomer(){
-        getCustomerById(thisCustomer.id)
+    suspend fun getOwnerCustomer(): Customer{
+       return getCustomerById(thisCustomer.id)!!
     }
     suspend fun saveCustomer(customer: Customer){
         if (isCustomerValid(customer).not()) throw IncorrectFormException()
