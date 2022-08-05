@@ -34,7 +34,7 @@ suspend fun getActiveOrder(): Order{
     return if(order.status==OrderStatuses.FINISHED){
         val newOrder = Order(0,1,OrderStatuses.CREATED, Instant.now())
         saveOrder(newOrder)
-        order
+        newOrder
     }else order
 }
 

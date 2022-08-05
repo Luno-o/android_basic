@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,12 @@ initList()
         observeViewModel()
         viewModel.loadList()
         binding.buyButton.setOnClickListener {
+            if(viewModel.productLiveData.value?.isEmpty() == true){
+                Toast.makeText(context,"You need buy some products",Toast.LENGTH_SHORT).show()
+            }else{
+
             findNavController().navigate(R.id.action_SecondFragment_to_deliveryConfirmFragment)
+            }
         }
     }
     private fun initList(){

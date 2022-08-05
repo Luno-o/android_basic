@@ -1,7 +1,9 @@
 package com.example.roomdao.presentation.product_list
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +14,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ProductListViewModel(application: Application): AndroidViewModel(application){
+    private val context: Context = application
 private val productRepository = ProductRepository()
     private val customerRepository = CustomerRepository()
     private val addressRepository = AddressRepository()
@@ -35,23 +38,31 @@ fun addOrder(order: Order){
     fun addProductToOrder(product: Product){
         viewModelScope.launch {
 val order = orderRepository.getActiveOrder()
-            val orderWithProducts = orderRepository.getOrderWithProducts(order.id)
+
             val orderPricess = orderPricesRepository.getOrderPrice(order.id)
             if (orderPricess.isEmpty()){
                 Log.d("viewmodelProduct"," order with products empty")
                 orderPricesRepository.saveOrder(OrderPrices(
                  order.id, product.id,1
                 ))
+                Toast.makeText(context,"Product ${product.title}add to order",Toast.LENGTH_SHORT).show()
             }else{
                 Log.d("viewmodelProduct"," not empty")
 
                 val orderPrice = orderPricess.find { orderPrices ->
                     orderPrices.productId == product.id
-                }!!
+                }
+                if (orderPrice==null){
+                    orderPricesRepository.saveOrder(OrderPrices(
+                        order.id, product.id,1))
+                }else{
+
                 val count = orderPrice.count
                 orderPricesRepository.updateOrderPrice(OrderPrices(
                     order.id, product.id,count+1
                 ))
+                }
+                Toast.makeText(context,"Product ${product.title} add to order",Toast.LENGTH_SHORT).show()
             }
         }
     }

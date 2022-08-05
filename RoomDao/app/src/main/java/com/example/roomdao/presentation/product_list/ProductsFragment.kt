@@ -41,7 +41,7 @@ private val viewModel: ProductListViewModel by viewModels()
         viewModel.addProduct(Product(1,"motorcycle",10000, null,"faster in the world"))
         viewModel.addProduct(Product(2,"bicycle",1000, null,"faster then motorcycle"))
         viewModel.addProduct(Product(3,"scooter",100, null,"if you don't like people byu this!!!"))
-        viewModel.addOrder(Order(1,1,OrderStatuses.CREATED
+        viewModel.addOrder(Order(0,1,OrderStatuses.CREATED
             , Instant.now()
         ))
 

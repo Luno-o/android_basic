@@ -14,7 +14,7 @@ import org.threeten.bp.Instant
 @TypeConverters(OrderStatusConverter::class)
 data class Order(
     @ColumnInfo(name = OrderContract.Columns.ID)
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = OrderContract.Columns.CUSTOMER_ID)
     val customerId:Long,
