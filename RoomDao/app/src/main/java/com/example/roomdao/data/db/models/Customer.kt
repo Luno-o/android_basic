@@ -24,5 +24,8 @@ data class Customer(
     @ColumnInfo(name = CustomerContract.Columns.LAST_NAME)
     val lastName: String,
     @ColumnInfo(name = CustomerContract.Columns.AVATAR)
-    val avatar: String?,
+    val avatar: String?
+    ,
+    @ColumnInfo(name = CustomerContract.Columns.AGE)
+    val age: Int
 )

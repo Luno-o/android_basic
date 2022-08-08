@@ -11,5 +11,6 @@ object Columns{
     const val FIRST_NAME = "first_name"
     const val LAST_NAME = "last_name"
     const val AVATAR = "avatar"
+    const val AGE = "age"
 }
 }

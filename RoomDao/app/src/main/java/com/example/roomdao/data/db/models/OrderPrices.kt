@@ -24,13 +24,7 @@ data class OrderPrices(
     @ColumnInfo(name = OrderPricesContract.Columns.COUNT)
     val count: Int
 )
-@Entity(primaryKeys = [OrderContract.Columns.ID,ProductContract.Columns.ID])
-data class OrderAndProductsCrossRef(
-    @ColumnInfo(name = OrderContract.Columns.ID)
-    val orderId: Long,
-    @ColumnInfo(name = ProductContract.Columns.ID)
-    val productId: Long
-)
+
 //@Entity
 //data class Playlist(
 //    @PrimaryKey val playlistId: Long,

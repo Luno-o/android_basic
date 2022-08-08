@@ -6,10 +6,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.room.withTransaction
 import com.example.roomdao.data.*
+import com.example.roomdao.data.db.Database
 import com.example.roomdao.data.db.models.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
+
 
 class OrderListViewModel(application: Application): AndroidViewModel(application){
 private val productRepository = ProductRepository()
@@ -28,6 +30,7 @@ private val orderPricesRepository = OrderPricesRepository()
     fun loadList(){
         viewModelScope.launch {
             try {
+                Database.instance.withTransaction {
                 Log.d("viewmodel"," launch load list")
                 val order = orderRepository.getActiveOrder()
                 val orderPrices = orderPricesRepository.getOrderPrice(order.id)
@@ -45,6 +48,7 @@ private val orderPricesRepository = OrderPricesRepository()
                 }
                     Log.d("viewmodel"," productlistWithCount  = $listProductWithCount")
             productMutableLiveData.postValue(listProductWithCount)
+                }
                 }
             }catch (t: Throwable){
                 Log.d("viewmodel"," catch throwable  = $t")

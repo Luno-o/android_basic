@@ -37,13 +37,18 @@ private val viewModel: ProductListViewModel by viewModels()
         super.onViewCreated(view, savedInstanceState)
        viewModel.addAddress(Address(1,"Great wall 4"))
        viewModel.addCustomer(Customer(1,1,"yui@maol.ti",
-            "23239222","Yui","Hong",null))
+            "23239222","Yui","Hong",null
+           ,22
+       ))
         viewModel.addProduct(Product(1,"motorcycle",10000, null,"faster in the world"))
         viewModel.addProduct(Product(2,"bicycle",1000, null,"faster then motorcycle"))
         viewModel.addProduct(Product(3,"scooter",100, null,"if you don't like people byu this!!!"))
+
+        if (viewModel.checkOrderStatus()){
         viewModel.addOrder(Order(0,1,OrderStatuses.CREATED
             , Instant.now()
         ))
+        }
 
         observeViewModel()
 initList()

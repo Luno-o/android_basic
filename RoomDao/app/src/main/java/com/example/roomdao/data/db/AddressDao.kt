@@ -22,7 +22,7 @@ interface AddressDao {
 
     @Update
     suspend fun updateAddress(address: Address)
-
+@Transaction
     @Query("SELECT * FROM ${AddressContract.TABLE_NAME} WHERE ${AddressContract.Columns.ID} = :id")
     suspend fun getCustomerWithAddress(id: Long):CustomerWithAddress
 }
