@@ -2,7 +2,7 @@ package com.example.scopedstorage
 
 import android.net.Uri
 
-data class Image(
+data class Video(
     val id: Long,
     val uri: Uri,
 val name: String,
