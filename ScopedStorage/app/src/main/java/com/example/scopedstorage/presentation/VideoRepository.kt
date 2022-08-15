@@ -148,11 +148,14 @@ suspend fun saveVideo(uri: Uri,url: String,deleteVideoCallback:(uri: Uri)->Unit)
                         .use { inputStream ->
                             inputStream.copyTo(outputStrem)
                         }
-
                 }
                 true
             } catch (t: Throwable) {
-                deleteVideo(uri.lastPathSegment?.toLong()!!)
+                try{
+                    deleteVideo(uri.lastPathSegment?.toLong()!!)
+                }catch (t: Throwable){
+                    deleteVideo(uri)
+                }
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "problem with download", Toast.LENGTH_SHORT).show()
                 }

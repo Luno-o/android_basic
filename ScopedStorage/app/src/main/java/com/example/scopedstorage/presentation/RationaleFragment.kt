@@ -61,6 +61,7 @@ class RationaleFragment : BottomSheetDialogFragment() {
             return
         } else {
             val url = urlEditText.text.toString()
+            Toast.makeText(context, "file not created url = $url", Toast.LENGTH_SHORT).show()
             parentFragmentManager.setFragmentResult(
                 VideosFragment.RATIONALE_KEY,
                 bundleOf(VideosFragment.RESULT_KEY to true,

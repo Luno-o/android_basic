@@ -51,9 +51,7 @@ class VideosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.secondFragmentButton.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+
 //        initPermissionResultListener()
         initRecoverableActionListener()
         initList()
@@ -88,6 +86,8 @@ class VideosFragment : Fragment() {
             if (!uriFile.path.isNullOrBlank()&& !urlFile.isNullOrBlank()){
                 viewModel.saveVideo(uriFile,urlFile)
                 Log.d("whatif2","working uri =$uriFile")
+            }else{
+                viewModel.deleteVideo(uriFile)
             }
 
         }

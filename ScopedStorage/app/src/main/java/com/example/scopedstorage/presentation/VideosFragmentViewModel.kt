@@ -66,7 +66,7 @@ private var isObservingStarted : Boolean = false
             }
         }
     }
-    private fun deleteVideo(uri: Uri){
+     fun deleteVideo(uri: Uri){
         viewModelScope.launch {
             try {
                 videoRepository.deleteVideo(uri)
