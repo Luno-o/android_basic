@@ -19,24 +19,25 @@ class FirebaseFragment : Fragment(R.layout.fragment_firebase) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.getTokenButton.setOnClickListener {
-getToken()
+            getToken()
         }
     }
-    private fun getToken(){
+
+    private fun getToken() {
         lifecycleScope.launch {
-      val token =  getTokenSuspend()
+            val token = getTokenSuspend()
             Timber.d("token = $token")
         }
     }
 
-    private suspend fun getTokenSuspend(): String? = suspendCoroutine {continuation->
+    private suspend fun getTokenSuspend(): String? = suspendCoroutine { continuation ->
         FirebaseMessaging.getInstance().token
-            .addOnSuccessListener {token->
+            .addOnSuccessListener { token ->
                 continuation.resume(token)
-            }.addOnFailureListener{exception->
-continuation.resume(null)
+            }.addOnFailureListener { exception ->
+                continuation.resume(null)
             }.addOnCanceledListener {
-continuation.resume(null)
+                continuation.resume(null)
             }
     }
 

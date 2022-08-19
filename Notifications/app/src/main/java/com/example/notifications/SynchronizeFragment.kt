@@ -100,7 +100,7 @@ class SynchronizeFragment : Fragment() {
             delay(1000)
             NotificationManagerCompat.from(requireContext())
                 .cancel(PROGRESS_NOTIFICATION_ID)
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 binding.synchronizeButton.isEnabled = true
             }
         }

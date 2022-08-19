@@ -65,16 +65,17 @@ class MessagingService : FirebaseMessagingService() {
         }
         val notification = notificationBuilder.build()
 
-        val summaryNotification =  NotificationCompat.Builder(this,NotificationChannels.INFO_CHANNEL_ID)
-            .setContentTitle("Summary")
-            .setContentText("$description from time ${System.currentTimeMillis()}")
-            .setSmallIcon(R.drawable.ic_message)
-            .setGroup(groupId)
-            .setGroupSummary(true)
-            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-            .build()
+        val summaryNotification =
+            NotificationCompat.Builder(this, NotificationChannels.INFO_CHANNEL_ID)
+                .setContentTitle("Summary")
+                .setContentText("$description from time ${System.currentTimeMillis()}")
+                .setSmallIcon(R.drawable.ic_message)
+                .setGroup(groupId)
+                .setGroupSummary(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .build()
         NotificationManagerCompat.from(this)
-            .notify(543,summaryNotification)
+            .notify(543, summaryNotification)
         NotificationManagerCompat.from(this).notify(getNotificationId(), notification)
     }
 

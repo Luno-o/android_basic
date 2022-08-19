@@ -14,15 +14,15 @@ import kotlinx.coroutines.launch
 
 import timber.log.Timber
 
-class NetworkBroadcastReceiver: BroadcastReceiver() {
+class NetworkBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("onReceive NetworkState")
-        context?:return
+        context ?: return
         isConnected(context)
     }
 
-     fun isConnected(context: Context):Boolean{
+    fun isConnected(context: Context): Boolean {
         val connMgr = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         var isWifiConn: Boolean = false
         var isMobileConn: Boolean = false
@@ -36,8 +36,8 @@ class NetworkBroadcastReceiver: BroadcastReceiver() {
                 }
             }
         }
-        Timber.d( "Wifi connected: $isWifiConn")
-        Timber.d( "Mobile connected: $isMobileConn")
+        Timber.d("Wifi connected: $isWifiConn")
+        Timber.d("Mobile connected: $isMobileConn")
         return isWifiConn
     }
 

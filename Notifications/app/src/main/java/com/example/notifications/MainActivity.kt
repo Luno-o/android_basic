@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-NotificationManagerCompat.from(this).cancelAll()
+        NotificationManagerCompat.from(this).cancelAll()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
