@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "621743630425",
+    "project_id": "pavlenkotest-fd273",
+    "storage_bucket": "pavlenkotest-fd273.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621743630425:android:79834f6a8e2e1a3b83e948",
+        "android_client_info": {
+          "package_name": "com.example.notifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621743630425-pqghkpugsp4cti93pep61rg9rok6393l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEactV08FzIF33v2ofJ962-7u6F4QeBao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621743630425-pqghkpugsp4cti93pep61rg9rok6393l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
