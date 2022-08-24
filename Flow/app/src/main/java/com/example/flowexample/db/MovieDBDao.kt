@@ -14,7 +14,7 @@ interface MovieDBDao {
     @Query("SELECT * FROM ${MovieDbContracts.TABLE_NAME}")
     suspend fun getAllMoviesDB(): List<MovieDB>
 
-    @Query("SELECT * FROM ${MovieDbContracts.TABLE_NAME} WHERE ${MovieDbContracts.Columns.TITLE} LIKE :title AND ${MovieDbContracts.Columns.TYPE}= :type")
+    @Query("SELECT * FROM ${MovieDbContracts.TABLE_NAME} WHERE ${MovieDbContracts.Columns.TITLE} LIKE '%'|| :title ||'%' AND ${MovieDbContracts.Columns.TYPE}= :type")
     suspend fun getMoviesByTitleAndType(title: String, type: String): List<MovieDB>
 
     @Query("SELECT * FROM ${MovieDbContracts.TABLE_NAME}")

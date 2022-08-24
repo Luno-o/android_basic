@@ -26,10 +26,10 @@ class MovieRepository(val context: Context) {
                 Toast.makeText(context, "No connection", Toast.LENGTH_SHORT).show()
             }
             Timber.d("search movies else $query $movieType")
-//moviesDao.getMoviesByTitleAndType(query, movieType.name).orEmpty()
-            moviesDao.getAllMoviesDB().filter {
-                it.title.contains(query, ignoreCase = true) && it.type == movieType
-            }
+moviesDao.getMoviesByTitleAndType(query, movieType.name).orEmpty()
+//            moviesDao.getAllMoviesDB().filter {
+//                it.title.contains(query, ignoreCase = true) && it.type == movieType
+//            }
         }
 
 
