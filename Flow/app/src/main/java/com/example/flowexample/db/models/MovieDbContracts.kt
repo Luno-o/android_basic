@@ -2,7 +2,8 @@ package com.example.flowexample.db.models
 
 object MovieDbContracts {
     const val TABLE_NAME = "movies"
-    object Columns{
+
+    object Columns {
 
         const val TITLE = "title"
         const val YEAR = "year"

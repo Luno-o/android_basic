@@ -11,5 +11,6 @@ interface MovieApi {
     suspend fun searchMovie(
         @Query("s")
         movieTitle: String,
-        @Query("type") movieType: String): ServerSearchWrapper<MovieDB>?
+        @Query("type") movieType: String
+    ): ServerSearchWrapper<MovieDB>?
 }

@@ -8,5 +8,5 @@ data class Score(
     @Json(name = "Source")
     val source: String,
     @Json(name = "Value")
-    val value : String
+    val value: String
 )

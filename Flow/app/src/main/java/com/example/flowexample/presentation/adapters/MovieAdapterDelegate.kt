@@ -13,7 +13,8 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 
-class MovieAdapterDelegate : AbsListItemAdapterDelegate<MovieDB,MovieDB,MovieAdapterDelegate.MovieHolder>(){
+class MovieAdapterDelegate :
+    AbsListItemAdapterDelegate<MovieDB, MovieDB, MovieAdapterDelegate.MovieHolder>() {
 
 
     override fun isForViewType(item: MovieDB, items: MutableList<MovieDB>, position: Int): Boolean {
@@ -27,20 +28,23 @@ class MovieAdapterDelegate : AbsListItemAdapterDelegate<MovieDB,MovieDB,MovieAda
     override fun onBindViewHolder(item: MovieDB, holder: MovieHolder, payloads: MutableList<Any>) {
         holder.bind(item)
     }
-    class MovieHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
+
+    class MovieHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
         LayoutContainer {
-fun bind(movie: MovieDB){
+        fun bind(movie: MovieDB) {
 //    var scoreString = StringBuilder()
 //    for (score in movie.scores){
 //        scoreString = scoreString.append(""+score.key+": " + score.value).append("\n")
 //    }
-    val year:String = movie.year
-containerView.titleTextView.text = containerView.context.resources.getString(R.string.movie_info,
-    movie.title,movie.id,year,movie.type,"","")
-    Glide.with(containerView)
-        .load(movie.poster)
-        .into(containerView.posterImageView)
+            val year: String = movie.year
+            containerView.titleTextView.text = containerView.context.resources.getString(
+                R.string.movie_info,
+                movie.title, movie.id, year, movie.type, "", ""
+            )
+            Glide.with(containerView)
+                .load(movie.poster)
+                .into(containerView.posterImageView)
 
-}
+        }
     }
 }

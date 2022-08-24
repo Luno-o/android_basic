@@ -12,7 +12,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 @Entity(tableName = MovieDbContracts.TABLE_NAME)
 @TypeConverters(MovieTypeConverter::class)
-data class MovieDB (
+data class MovieDB(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = MovieDbContracts.Columns.IMDB_ID)
     @Json(name = "imdbID")
@@ -29,4 +29,4 @@ data class MovieDB (
     @ColumnInfo(name = MovieDbContracts.Columns.POSTER)
     @Json(name = "Poster")
     val poster: String
-        )
+)

@@ -20,9 +20,9 @@ import timber.log.Timber
 class SearchMovieViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = MovieRepository(application)
     private var currentJob: Job? = null
-private val moviesLiveData = MutableLiveData<List<MovieDB>>()
-    val moviesLD:LiveData<List<MovieDB>>
-    get() = moviesLiveData
+    private val moviesLiveData = MutableLiveData<List<MovieDB>>()
+    val moviesLD: LiveData<List<MovieDB>>
+        get() = moviesLiveData
 
     private val progressLiveData = MutableLiveData<Boolean>()
     val progressLD:LiveData<Boolean>

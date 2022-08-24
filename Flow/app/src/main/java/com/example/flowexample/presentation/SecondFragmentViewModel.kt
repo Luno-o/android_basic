@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SecondFragmentViewModel(application: Application): AndroidViewModel(application) {
+class SecondFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = MovieRepository(application)
     private val moviesLiveData = MutableLiveData<List<MovieDB>>()
 
@@ -20,9 +20,9 @@ class SecondFragmentViewModel(application: Application): AndroidViewModel(applic
     val moviesLD: LiveData<List<MovieDB>>
         get() = moviesLiveData
 
-    fun observeMovies(){
-        viewModelScope.launch{
-            repository.observeMovies().collect{
+    fun observeMovies() {
+        viewModelScope.launch {
+            repository.observeMovies().collect {
                 _state.value = it
             }
         }

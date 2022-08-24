@@ -5,15 +5,16 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.flowexample.db.models.MovieDB
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
-class MovieAdapter : AsyncListDifferDelegationAdapter<MovieDB>(MovieDiffUtillCallback()){
-init{
-    delegatesManager.addDelegate(MovieAdapterDelegate())
-}
-    class MovieDiffUtillCallback: DiffUtil.ItemCallback<MovieDB>(){
+class MovieAdapter : AsyncListDifferDelegationAdapter<MovieDB>(MovieDiffUtillCallback()) {
+    init {
+        delegatesManager.addDelegate(MovieAdapterDelegate())
+    }
+
+    class MovieDiffUtillCallback : DiffUtil.ItemCallback<MovieDB>() {
         override fun areItemsTheSame(oldItem: MovieDB, newItem: MovieDB): Boolean {
-            return when{
+            return when {
                 oldItem is MovieDB && newItem is MovieDB -> oldItem.id == newItem.id
-else->false
+                else -> false
             }
         }
 

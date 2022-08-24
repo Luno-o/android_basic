@@ -7,7 +7,7 @@ import com.example.flowexample.models.MovieType
 
 class MovieTypeConverter {
     @TypeConverter
-    fun convertMovieTypeToString(movieType: MovieType):String = movieType.name
+    fun convertMovieTypeToString(movieType: MovieType): String = movieType.name
 
     @TypeConverter
     fun convertStringToMovieType(string: String): MovieType = MovieType.valueOf(string)

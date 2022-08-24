@@ -11,9 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flowexample.R
-import com.example.flowexample.models.Gender
 import com.example.flowexample.models.MovieType
-import com.example.flowexample.models.User
 import com.example.flowexample.databinding.FragmentSearchMovieBinding
 import com.example.flowexample.utils.checkedChangesFlow
 import com.example.flowexample.utils.textChangeFlow

@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class SecondFragment : Fragment() {
     private var movieAdapter: MovieAdapter? = null
     private var _binding: FragmentSecondBinding? = null
-private val viewModel: SecondFragmentViewModel by viewModels()
+    private val viewModel: SecondFragmentViewModel by viewModels()
 
     private val binding get() = _binding!!
 
@@ -34,7 +34,7 @@ private val viewModel: SecondFragmentViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
- initList()
+        initList()
         viewModel.observeMovies()
         observeViewModel()
     }
@@ -47,11 +47,12 @@ private val viewModel: SecondFragmentViewModel by viewModels()
             setHasFixedSize(true)
         }
     }
-    private fun observeViewModel(){
+
+    private fun observeViewModel() {
         lifecycleScope.launch {
-        viewModel.state.collect{
-            movieAdapter?.items = it
-        }
+            viewModel.state.collect {
+                movieAdapter?.items = it
+            }
         }
     }
 

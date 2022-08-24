@@ -3,8 +3,8 @@ package com.example.flowexample.network
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class CustomHeaderInterceptor (
-        ):Interceptor{
+class CustomHeaderInterceptor(
+) : Interceptor {
     private val MOVIE_API_KEY = "3bb669f3"
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
