@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.backgroundwork">
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".BackgroundWorkApplication"
         android:allowBackup="true"
@@ -26,7 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".DownloadService" android:exported="false"/>
+        <service android:name=".other.DownloadService" android:exported="false"/>
+<!--        <service android:name=".MediaPlayBackService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.media.browse.MediaBrowserService" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
     </application>
 
 </manifest>

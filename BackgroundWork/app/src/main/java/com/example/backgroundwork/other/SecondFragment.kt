@@ -1,4 +1,4 @@
-package com.example.backgroundwork
+package com.example.backgroundwork.other
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import androidx.work.*
+import com.example.backgroundwork.DownloadWorker
 import com.example.backgroundwork.databinding.FragmentSecondBinding
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -54,7 +54,7 @@ private fun startDownload(){
 val urlToDownload = binding.urlEditText.text.toString()
 
     val workData = workDataOf(
-DownloadWorker.DOWLOAD_URL_KEY to urlToDownload
+DownloadWorker.DOWNLOAD_URL_KEY to urlToDownload
     )
     val workConstraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.NOT_ROAMING)

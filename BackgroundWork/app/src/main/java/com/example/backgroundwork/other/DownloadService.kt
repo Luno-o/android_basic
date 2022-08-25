@@ -1,13 +1,13 @@
-package com.example.backgroundwork
+package com.example.backgroundwork.other
 
 import android.app.Notification
 import android.app.Service
-import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.IBinder
-import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.lifecycleScope
+import androidx.core.net.toUri
+import com.example.backgroundwork.DownloadFileFragment
 import kotlinx.coroutines.*
 import timber.log.Timber
 
@@ -22,15 +22,18 @@ class DownloadService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val url = intent?.getStringExtra(FirstFragment.KEY_URL)
+        val url = intent?.getStringExtra(DownloadFileFragment.KEY_URL)
+        val uri = intent?.getStringExtra(DownloadFileFragment.KEY_URI)?.toUri()
+
+
         Timber.d("onStartCommand from ${Thread.currentThread().name}")
-        if (url != null) {
-            downloadFile(url)
+        if (url != null && uri != null) {
+            downloadFile(url,uri)
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun downloadFile(url: String) {
+    private fun downloadFile(url: String,uri: Uri) {
         startForeground(NOTIFICATION_ID,createNotification(0,0))
         coroutineScope.launch {
             Timber.d("download started")
@@ -50,7 +53,7 @@ class DownloadService : Service() {
         }
     }
 private fun createNotification(progress: Int,maxProgress: Int): Notification{
-return Notification.Builder(this,NotificationChannels.INFO_CHANNEL_ID)
+return Notification.Builder(this, NotificationChannels.INFO_CHANNEL_ID)
     .setContentTitle("Download progress")
     .setSmallIcon(android.R.drawable.stat_sys_download)
     .setProgress(maxProgress,progress,false)

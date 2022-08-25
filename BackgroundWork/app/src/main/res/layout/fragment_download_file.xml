@@ -4,27 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".other.SecondFragment">
+    tools:context=".DownloadFileFragment">
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/urlEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-android:hint="@string/url_to_download"
+        android:hint="@string/url_to_download"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/startDownloadButton"
+        android:id="@+id/startDownloadingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/download"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/urlEditText" />
-
+        app:layout_constraintTop_toBottomOf="@id/urlEditText" />
+    <Button
+        android:id="@+id/retryButton"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/download"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/urlEditText" />
+    <TextView
+        android:id="@+id/waitingTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+android:text="@string/waiting_for_download"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <Button
         android:id="@+id/cancelDownloadButton"
         android:layout_width="wrap_content"
@@ -33,18 +59,7 @@ android:hint="@string/url_to_download"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDownloadButton" />
+        app:layout_constraintTop_toBottomOf="@+id/startDownloadingButton" />
 
-    <ProgressBar
-        android:id="@+id/progress"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/download"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

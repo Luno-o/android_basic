@@ -1,4 +1,4 @@
-package com.example.backgroundwork
+package com.example.backgroundwork.other
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

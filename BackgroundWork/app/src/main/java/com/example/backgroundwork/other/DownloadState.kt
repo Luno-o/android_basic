@@ -1,4 +1,4 @@
-package com.example.backgroundwork
+package com.example.backgroundwork.other
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
