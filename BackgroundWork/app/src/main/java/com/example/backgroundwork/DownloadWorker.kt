@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
+import androidx.lifecycle.lifecycleScope
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.backgroundwork.network.Network
@@ -26,10 +27,19 @@ class DownloadWorker(
     override suspend fun doWork(): Result {
         val urlToDownload = inputData.getString(DOWNLOAD_URL_KEY)
         val uriToDownload = inputData.getString(DOWNLOAD_URI_KEY)?.toUri()
+        val uriD = Uri.parse(urlToDownload)
+        val correctUrl=   !(uriD.host.isNullOrBlank() && uriD.scheme.isNullOrBlank())
+        if (!correctUrl){
+            withContext(Dispatchers.Main){
+                Toast.makeText(context, "Enter correct url", Toast.LENGTH_SHORT).show()
+            }
+            deleteFile(uriToDownload!!)
+            return Result.failure()
+        }
         Timber.d("download started")
 
         return suspendCoroutine {continuation->
-        if (urlToDownload != null && uriToDownload != null) {
+        if (!urlToDownload.isNullOrBlank()  && uriToDownload != null) {
             coroutineScope.launch {
  val deferredResult = coroutineScope.async {
                 downloadFile(urlToDownload,uriToDownload)
@@ -53,7 +63,7 @@ class DownloadWorker(
 
     private suspend fun downloadFile(url: String, uri: Uri): Result {
         return if (uri.host != null && uri.scheme != null && !uri.lastPathSegment.isNullOrBlank()) {
-            Timber.d("$uri $url")
+            Timber.d("uri = $uri  url = $url")
             try {
                 context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                     Network.api.getFile(url)

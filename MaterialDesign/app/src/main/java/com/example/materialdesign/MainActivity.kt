@@ -9,7 +9,13 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.example.materialdesign.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,11 +34,35 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.bottomNavigation.setupWithNavController(navController)
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener() { item->
+            when(item.itemId){
+                R.id.page_1->{navController.navigate(R.id.repairFragment)
+                    true}
+                R.id.page_2->{
+                    navController.navigate(R.id.editFragment)
+                    true}
+                R.id.page_3->{
+                    navController.navigate(R.id.fortFragment)
+                    true}
+                else->false
+            }
+        }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            val destId = controller.currentDestination?.id
+            if (destId != null) {
+                when (destId) {
+                    R.id.repairFragment -> binding.bottomNavigation.menu.getItem(0).isChecked =
+                        true
+                    R.id.editFragment -> binding.bottomNavigation.menu.getItem(1).isChecked = true
+                    R.id.fortFragment -> binding.bottomNavigation.menu.getItem(2).isChecked = true
+                    else -> {}
+                }
+            }
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
