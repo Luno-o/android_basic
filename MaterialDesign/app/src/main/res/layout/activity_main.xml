@@ -21,15 +21,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-<com.google.android.material.card.MaterialCardView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    android:checkable="true">
 
-
-</com.google.android.material.card.MaterialCardView>
     <include layout="@layout/content_main" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

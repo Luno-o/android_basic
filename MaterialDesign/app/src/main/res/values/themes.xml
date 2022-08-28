@@ -13,6 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="textAppearanceHeadline1">@style/MyHeadLine1</item>
+        <item name="textAppearanceBody2">@style/MyBody2</item>
         <item name="textAppearanceButton">@style/MyButton</item>
 <item name="bottomNavigationStyle">@style/Theme.MaterialDesign.BottomNavigationView</item>
     </style>
@@ -38,11 +39,22 @@
     <style name="Theme.MaterialDesign.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MaterialDesign.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="MyHeadLine1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">30sp</item>
+<item name="fontFamily">casual</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
     </style>
+    <style name="MyBody2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">cursive</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
     <style name="MyButton" parent="TextAppearance.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
     </style>
+
 </resources>

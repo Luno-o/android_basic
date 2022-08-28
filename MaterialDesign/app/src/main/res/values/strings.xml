@@ -17,5 +17,12 @@
     <string name="repair_fragment">Repair Fragment</string>
     <string name="edit_fragment">edit fragment</string>
     <string name="fort_fragment">Fort Fragment</string>
-
+<string name="title">Title</string>
+<string name="secondary_text">Secondary text</string>
+<string name="supporting_text">Supporting text</string>
+    <string name="action_1">Action 1</string>
+    <string name="action_2">Action 2</string>
+    <string name="content_description_media">Content description</string>
+    <string name="see_detail">see detail</string>
+    <string name="not_large_but_very_fast_pirate_ship_in_th_world">Not large? but very fast pirate ship in th world</string>
 </resources>
