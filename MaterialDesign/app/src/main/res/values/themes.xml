@@ -9,6 +9,7 @@
         <item name="colorSecondary">@color/indigo_600</item>
         <item name="colorSecondaryVariant">@color/indigo_900</item>
         <item name="colorOnSecondary">@color/grey_200</item>
+        <item name="appBarLayoutStyle">@style/Widget.App.Toolbar</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -16,6 +17,13 @@
         <item name="textAppearanceBody2">@style/MyBody2</item>
         <item name="textAppearanceButton">@style/MyButton</item>
 <item name="bottomNavigationStyle">@style/Theme.MaterialDesign.BottomNavigationView</item>
+    </style>
+
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.AppBarLayout.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyToolbar.Primary</item>
+    </style>
+    <style name="ThemeOverlay.MyToolbar.Primary" parent="">
+        <item name="colorPrimary">@color/indigo_600</item>
     </style>
     <style name="Theme.MaterialDesign.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="materialThemeOverlay">@style/Theme.MaterialDesign.BottomNavigationStyleNew</item>

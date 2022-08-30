@@ -25,4 +25,5 @@
     <string name="content_description_media">Content description</string>
     <string name="see_detail">see detail</string>
     <string name="not_large_but_very_fast_pirate_ship_in_th_world">Not large? but very fast pirate ship in th world</string>
+    <string name="show_snackbar">Show snackbar</string>
 </resources>

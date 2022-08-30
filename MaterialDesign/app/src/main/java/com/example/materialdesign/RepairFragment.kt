@@ -1,20 +1,16 @@
 package com.example.materialdesign
 
-import android.R
-import android.animation.LayoutTransition
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.accessibility.AccessibilityNodeInfo
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.customview.widget.ViewDragHelper
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.materialdesign.DraggableCoordinatorLayout.ViewDragListener
 import com.example.materialdesign.databinding.FragmentRepairBinding
-import com.google.android.material.card.MaterialCardView
+import com.google.android.material.snackbar.Snackbar
 
 
 class RepairFragment : Fragment() {
@@ -48,6 +44,8 @@ with(binding){
         setHasFixedSize(true)
     }
 }
+        showSnackbar()
+
     }
 
 private fun populateShip(){
@@ -63,5 +61,10 @@ private fun populateShip(){
         )
     )
 }
+private fun showSnackbar(){
 
+//    Snackbar.make(requireActivity().findViewById(android.R.id.content),"Test snackbar",Snackbar.LENGTH_SHORT)
+//        .show()
+
+}
 }

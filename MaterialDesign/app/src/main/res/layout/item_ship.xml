@@ -12,6 +12,7 @@
         android:layout_margin="10dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
+        android:transitionName=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

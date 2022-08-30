@@ -39,6 +39,14 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener() { item->
             when(item.itemId){
                 R.id.page_1->{navController.navigate(R.id.repairFragment)
+
+                    Snackbar.make(binding.root,"Соединение с сервером отсутствует, показаны сохранённые объекты",Snackbar.LENGTH_SHORT)
+                        .setAnchorView(this.findViewById(R.id.bottom_navigation))
+                        .setAction("Повторить"){
+                            Snackbar.make(binding.root,"Список обновлен",Snackbar.LENGTH_SHORT)
+                                .setAnchorView(this.findViewById(R.id.bottom_navigation)).show()
+                        }
+                        .show()
                     true}
                 R.id.page_2->{
                     navController.navigate(R.id.editFragment)
