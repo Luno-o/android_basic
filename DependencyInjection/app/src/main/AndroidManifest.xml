@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ScopedStorage">
-        <activity android:name="ru.skillbox.dependency_injection.presentation.main.MainActivity">
+        <activity android:name="ru.skillbox.dependency_injection.presentation.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

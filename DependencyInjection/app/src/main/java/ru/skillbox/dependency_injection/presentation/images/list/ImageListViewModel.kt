@@ -3,23 +3,23 @@ package ru.skillbox.dependency_injection.presentation.images.list
 import android.app.Application
 import android.app.RecoverableSecurityException
 import android.app.RemoteAction
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.skillbox.dependency_injection.R
 import ru.skillbox.dependency_injection.data.Image
-import ru.skillbox.dependency_injection.data.ImagesRepository
+import ru.skillbox.dependency_injection.data.ImageRepository
+import ru.skillbox.dependency_injection.data.ImagesRepositoryImpl
 import ru.skillbox.dependency_injection.utils.SingleLiveEvent
 import ru.skillbox.dependency_injection.utils.haveQ
 import timber.log.Timber
+import javax.inject.Inject
 
-class ImageListViewModel(
-    app: Application
-) : AndroidViewModel(app) {
+@HiltViewModel
+class ImageListViewModel @Inject constructor(
+    private val imagesRepository: ImageRepository
+) : ViewModel() {
 
-    private val imagesRepository = ImagesRepository(app)
 
     private val permissionsGrantedMutableLiveData = MutableLiveData(true)
     private val toastSingleLiveEvent = SingleLiveEvent<Int>()

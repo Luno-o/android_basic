@@ -8,17 +8,24 @@ import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.skillbox.dependency_injection.di.AppVersionApi
+import ru.skillbox.dependency_injection.di.AppVersionLoggingInterceptorClient
 import ru.skillbox.dependency_injection.utils.haveQ
+import javax.inject.Inject
 
-class ImagesRepository(
-    private val context: Context
-) {
+class ImagesRepositoryImpl @Inject constructor(
+    private val context: Context,
+    @AppVersionApi
+    private val api: Api
+):ImageRepository {
 
     private var observer: ContentObserver? = null
 
-    fun observeImages(onChange: () -> Unit) {
+    override fun observeImages(onChange: () -> Unit) {
         observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
             override fun onChange(selfChange: Boolean) {
                 super.onChange(selfChange)
@@ -32,13 +39,13 @@ class ImagesRepository(
         )
     }
 
-    fun unregisterObserver() {
+   override fun unregisterObserver() {
         observer?.let { context.contentResolver.unregisterContentObserver(it) }
     }
 
     // https://filedn.com/ltOdFv1aqz1YIFhf4gTY8D7/ingus-info/BLOGS/Photography-stocks3/stock-photography-slider.jpg
 
-    suspend fun getImages(): List<Image> {
+    override suspend fun getImages(): List<Image> {
         val images = mutableListOf<Image>()
         withContext(Dispatchers.IO) {
             context.contentResolver.query(
@@ -64,7 +71,7 @@ class ImagesRepository(
         return images
     }
 
-    suspend fun saveImage(name: String, url: String) {
+    override suspend fun saveImage(name: String, url: String) {
         withContext(Dispatchers.IO) {
             val imageUri = saveImageDetails(name)
             downloadImage(url, imageUri)
@@ -102,7 +109,7 @@ class ImagesRepository(
 
     private suspend fun downloadImage(url: String, uri: Uri) {
         context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-            Networking.api
+            api
                 .getFile(url)
                 .byteStream()
                 .use { inputStream ->
@@ -111,7 +118,7 @@ class ImagesRepository(
         }
     }
 
-    suspend fun deleteImage(id: Long) {
+   override suspend fun deleteImage(id: Long) {
         withContext(Dispatchers.IO) {
             val uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id)
             context.contentResolver.delete(uri, null, null)
